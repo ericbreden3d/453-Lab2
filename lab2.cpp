@@ -12,24 +12,24 @@ class Matrix {
  public:
     Matrix(int n) {
         size = n;
-        int** m = new int*[n];
-        for (int i = 0; i < n; i++) {
-            m[i] = new int[n];
-            for (int j = 0; j < n; j++) {
+        int** m = new int*[size];
+        for (int i = 0; i < size; i++) {
+            m[i] = new int[size];
+            for (int j = 0; j < size; j++) {
                 m[j][i] = 3 - rand() % 4;
             }
         }
     }
 
     void print_matrix() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 cout << matrix[j][i] << " ";
             }
             cout << endl;
         }
     }
-}
+};
 
 int main(int argc, char** argv) {
     int this_rank;
@@ -41,8 +41,8 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
 
     if (this_rank == 0) {
-        make_matrix(n);
-        print_matrix(m);
+        m = Matrix(n);
+        m.print_matrix();
     }
 }
 
