@@ -12,6 +12,7 @@ class Matrix {
  public:
     Matrix(int n) {
         size = n;
+        cout << size << endl;
         int* m = new int[size];
         // for (int i = 0; i < size; i++) {
             // m[i] = new int[size];
