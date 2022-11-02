@@ -16,7 +16,7 @@ class Matrix {
         for (int i = 0; i < size; i++) {
             m[i] = new int[size];
             for (int j = 0; j < size; j++) {
-                m[i][j] = 3 - rand() % 4;
+                m[j][i] = 3 - rand() % 4;
             }
         }
     }
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix m(n);
-        m.print_matrix();
+        // m.print_matrix();
     }
 }
 
