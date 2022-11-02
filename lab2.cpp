@@ -12,22 +12,22 @@ class Matrix {
  public:
     Matrix(int n) {
         size = n;
-        cout << size << endl;
         int* m = new int[size];
-        // for (int i = 0; i < size; i++) {
-            // m[i] = new int[size];
-            // for (int j = 0; j < size; j++) {
-            //     m[j][i] = 3 - rand() % 4;
-            // }
-        // }
+        for (int i = 0; i < size; i++) {
+            m[i] = new int[size];
+            for (int j = 0; j < size; j++) {
+                m[j][i] = 3 - rand() % 4;
+            }
+        }
     }
 
-    // ~Matrix() {
-    //     for (int i = 0; i < size; i++) {
-    //         delete[] matrix[i];
-    //     }
-    //     delete[] matrix;
-    // }
+    ~Matrix() {
+        for (int i = 0; i < size; i++) {
+            cout << i << " "
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+    }
 
     void print_matrix() {
         for (int i = 0; i < size; i++) {
