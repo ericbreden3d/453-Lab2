@@ -34,14 +34,14 @@ class Matrix {
 int main(int argc, char** argv) {
     int this_rank;
     int num_procs;
-    int n = stoi(argv[1])
+    int n = stoi(argv[1]);
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &this_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
 
     if (this_rank == 0) {
-        m = Matrix(n);
+        Matrix m(n);
         m.print_matrix();
     }
 }
