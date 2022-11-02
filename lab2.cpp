@@ -12,7 +12,7 @@ void make_matrix(int n) {
     }
 }
 
-int main(int argc, int** argv) {
+int main(int argc, char** argv) {
     int this_rank;
     int num_procs;
 
