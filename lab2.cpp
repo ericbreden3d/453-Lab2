@@ -14,7 +14,7 @@ class Matrix {
         size = n;
         int** m = new int*[size];
         for (int i = 0; i < size; i++) {
-            m[i] = new int[size];
+            // m[i] = new int[size];
             // for (int j = 0; j < size; j++) {
             //     m[j][i] = 3 - rand() % 4;
             // }
