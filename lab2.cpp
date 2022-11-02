@@ -13,12 +13,12 @@ class Matrix {
     Matrix(int n) {
         size = n;
         int** m = new int*[size];
-        for (int i = 0; i < size; i++) {
+        // for (int i = 0; i < size; i++) {
             // m[i] = new int[size];
             // for (int j = 0; j < size; j++) {
             //     m[j][i] = 3 - rand() % 4;
             // }
-        }
+        // }
     }
 
     ~Matrix() {
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
 
     if (this_rank == 0) {
-        // Matrix m(n);
+        Matrix m(n);
         // m.print_matrix();
     }
 }
