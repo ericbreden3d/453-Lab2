@@ -12,7 +12,7 @@ class Matrix {
  public:
     Matrix(int n) {
         size = n;
-        int* m = new int[size];
+        int** m = new int*[size];
         for (int i = 0; i < size; i++) {
             m[i] = new int[size];
             for (int j = 0; j < size; j++) {
