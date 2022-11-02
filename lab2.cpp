@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <mpi.h>
 using namespace std;
 
 void make_matrix(int n) {
