@@ -23,7 +23,7 @@ class Matrix {
 
     ~Matrix() {
         for (int i = 0; i < size; i++) {
-            cout << i << " "
+            cout << i << " ";
             delete[] matrix[i];
         }
         delete[] matrix;
