@@ -12,5 +12,5 @@ void make_matrix(int n) {
 }
 
 int main() {
-    make_matrix();
+    make_matrix(10);
 }
