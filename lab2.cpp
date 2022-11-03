@@ -35,34 +35,45 @@ int main(int argc, char** argv) {
     MPI_Cart_coords(cart_comm, this_rank, 2, this_coord);
     get_dim_counts(2, cart_comm, dim_counts);
 
-    
     if (this_rank == 0) {
-        int nl_coord[2] = {3, 0};
-        int nl_rank;
-        int nr_coord[2] = {1, 0};
-        int nr_rank;
-        int nu_coord[2] = {0, 1};
-        int nu_rank;
-        int nd_coord[2] = {0, 3};
-        int nd_rank;
-        MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
-        MPI_Cart_shift(cart_comm, 1, 1, &neighbors[2], &neighbors[3]);
-        MPI_Cart_rank(cart_comm, nl_coord, &nl_rank);
-        MPI_Cart_rank(cart_comm, nr_coord, &nr_rank);
-        MPI_Cart_rank(cart_comm, nu_coord, &nu_rank);
-        MPI_Cart_rank(cart_comm, nd_coord, &nd_rank);
-        cout << "Dims: " << dim_counts[0] << " " << dim_counts[1] << endl;
-        cout << "This coord: " << this_coord[0] << "," << this_coord[1] << endl;
-        cout << "This rank: " << this_rank << endl;
-        cout << "Left neighbor rank " << nl_rank << endl;
-        cout << "Right neighbor rank " << nr_rank << endl;
-        cout << "Up neighbor rank " << nu_rank << endl;
-        cout << "Down neighbor rank " << nd_rank << endl;
-        cout << "Neighbors:";
-        for (int n : neighbors) {
-            cout << " " << n;
-        }
-        cout << endl;  
+        Matrix m(n);
+        Matrix sub = m(5, 3, 2);
+        sub.print();
+    }
+
+
+
+
+
+
+    
+    // if (this_rank == 0) {
+    //     int nl_coord[2] = {3, 0};
+    //     int nl_rank;
+    //     int nr_coord[2] = {1, 0};
+    //     int nr_rank;
+    //     int nu_coord[2] = {0, 1};
+    //     int nu_rank;
+    //     int nd_coord[2] = {0, 3};
+    //     int nd_rank;
+    //     MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
+    //     MPI_Cart_shift(cart_comm, 1, 1, &neighbors[2], &neighbors[3]);
+    //     MPI_Cart_rank(cart_comm, nl_coord, &nl_rank);
+    //     MPI_Cart_rank(cart_comm, nr_coord, &nr_rank);
+    //     MPI_Cart_rank(cart_comm, nu_coord, &nu_rank);
+    //     MPI_Cart_rank(cart_comm, nd_coord, &nd_rank);
+    //     cout << "Dims: " << dim_counts[0] << " " << dim_counts[1] << endl;
+    //     cout << "This coord: " << this_coord[0] << "," << this_coord[1] << endl;
+    //     cout << "This rank: " << this_rank << endl;
+    //     cout << "Left neighbor rank " << nl_rank << endl;
+    //     cout << "Right neighbor rank " << nr_rank << endl;
+    //     cout << "Up neighbor rank " << nu_rank << endl;
+    //     cout << "Down neighbor rank " << nd_rank << endl;
+    //     cout << "Neighbors:";
+    //     for (int n : neighbors) {
+    //         cout << " " << n;
+    //     }
+    //     cout << endl;  
 
     
     }
