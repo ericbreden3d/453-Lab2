@@ -59,6 +59,9 @@ Matrix::Matrix(int n) {
 Matrix::Matrix(int* buff, int len) {
     size = sqrt(len);
     matrix = new int*[size];
+    for (int i = 0; i < size; i++) {
+        matrix[i] = new int[size];
+    }
     arr = new int[len];
     int i = 0;
     int j = 0;
