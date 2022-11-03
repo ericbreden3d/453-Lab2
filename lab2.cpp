@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     int num_procs;
     int dims[2] = {0, 0};
     int dim_counts[2];
-    int periods[2] = {true, true};
+    int periods[2] = {false, false};
     int this_coord[2];
     int neighbors[4] = {};
     MPI_Comm cart_comm;
