@@ -47,6 +47,9 @@ int main(int argc, char** argv) {
             cout << a[i] << " ";
         }
         cout << endl;
+
+        Matrix sub2(a, test*test);
+        sub2.print();
     }
 
 }
