@@ -35,15 +35,16 @@ int main(int argc, char** argv) {
     MPI_Cart_coords(cart_comm, this_rank, 2, this_coord);
     get_dim_counts(2, cart_comm, dim_counts);
 
-    int nl_coord[2] = {3, 0};
-    int nl_rank;
-    int nr_coord[2] = {1, 0};
-    int nr_rank;
-    int nu_coord[2] = {0, 1};
-    int nu_rank;
-    int nd_coord[2] = {0, 3};
-    int nd_rank;
+    
     if (this_rank == 0) {
+        int nl_coord[2] = {3, 0};
+        int nl_rank;
+        int nr_coord[2] = {1, 0};
+        int nr_rank;
+        int nu_coord[2] = {0, 1};
+        int nu_rank;
+        int nd_coord[2] = {0, 3};
+        int nd_rank;
         MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
         MPI_Cart_shift(cart_comm, 1, 1, &neighbors[2], &neighbors[3]);
         MPI_Cart_rank(cart_comm, nl_coord, &nl_rank);
@@ -62,7 +63,12 @@ int main(int argc, char** argv) {
             cout << " " << n;
         }
         cout << endl;  
+
+    
     }
+
+    
+
 }
 
 

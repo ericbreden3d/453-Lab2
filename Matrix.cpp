@@ -4,9 +4,9 @@
 #include "Matrix.h"
 using namespace std;
 
-Matrix Matrix::get_subm(int split) {
+Matrix Matrix::get_detrm_subm(int split) {
     // cout << "Getting sub-matrix" << endl;
-    Matrix new_m(this->size - 1);
+    Matrix new_m(size - 1);
     for (int i = 0; i < this->size; i++) {
         if (i == split) {
             split = -1;
@@ -18,7 +18,6 @@ Matrix Matrix::get_subm(int split) {
             arr[x + j - 1] = (*this)(i, j);
         }
     }
-    // new_m.print();
     return new_m;
 }
 
@@ -28,28 +27,17 @@ int Matrix::detrm_helper(Matrix m) {
     }
     int op = 1;
     int detrm = 0;
-    int res[10];
-    int res_ind = 0;
-    // cout << 0;
     for (int i = 0; i < m.size; i++) {
-        int rec = detrm_helper(m.get_subm(i));
-        // cout << "REC: " << rec << " THIS " << m(i, 0) << endl << endl;
+        int rec = detrm_helper(m.get_detrm_subm(i));
         int result = m(i, 0) * rec;
         if (op) {
             detrm += result;
             op--;
-            // cout << " + ";
         } else {
             detrm -= result;
             op++;
-            // cout << " - ";
         }
-        res[res_ind++] = result;
     }
-    for (int i = 0; i < res_ind; i++) {
-        // cout << res[i] << " ";
-    }
-    // cout << "= RESULT: " << detrm << endl << endl;
     return detrm;
 }
 
@@ -103,18 +91,15 @@ Matrix Matrix::operator*(Matrix& other) {
     return new_m;
 }
 
-// int MPI_Sendrecv(const void* buffer_send,
-//                  int count_send,
-//                  MPI_Datatype datatype_send,
-//                  int recipient,
-//                  int tag_send,
-//                  void* buffer_recv,
-//                  int count_recv,
-//                  MPI_Datatype datatype_recv,
-//                  int sender,
-//                  int tag_recv,
-//                  MPI_Comm communicator,
-//                  MPI_Status* status);
+Matrix Matrix::get_subm(int len, int x, int y) {
+    Matrix new_m(len);
+    for (int i = x; i < len + x; i++) {
+        for (int j = y; j < len + y; j++) {
+            new_m(i - x, j - y) = (*this)(i, j);
+        }
+    }
+    return new_m;
+}
 
 int Matrix::determinant() {
     int result = detrm_helper(*this);
