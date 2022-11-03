@@ -16,8 +16,6 @@ Matrix Matrix::get_detrm_subm(int split) {
         int x = split == -1 ? i - 1 : i;  // if already split, shift left
         for (int j = 1; j < this->size; j++) {
             new_m(x, j - 1) = (*this)(i, j);
-            cout << "INDEX " << x + (j - 1) * size << endl;
-            arr[x + (j - 1) * new_m.size] = (*this)(i, j);
         }
     }
     return new_m;
