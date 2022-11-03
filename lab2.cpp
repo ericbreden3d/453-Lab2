@@ -40,12 +40,12 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
         MPI_Request req;
-        MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
-              cart_comm, &req);
+        // MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
+        //       cart_comm, &req);
         cout << "D: " << m.determinant() << endl;
     }
 
-    if (this_rank == 1) {
+    if (this_rank == 10) {
         MPI_Status stat;
         int buf[n*n];
         MPI_Recv(buf, n*n, MPI_INT, 0, 0,
