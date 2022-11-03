@@ -27,18 +27,18 @@ int main(int argc, char** argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &this_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
 
-    MPI_Dims_create(size, 2, dims);
+    MPI_Dims_create(num_procs, 2, dims);
     MPI_Cart_create(MPI_COMM_WORLD, 2, dims, periods, true, &cart_comm);
 
     // get new rank, cart coords, and amount of procs in each dim
-    MPI_Comm_rank(new_comm, &this_rank);
-    MPI_Cart_coords(new_comm, this_rank, m, this_coord);
-    get_dim_counts(m, new_comm, dim_counts);
+    MPI_Comm_rank(cart_comm, &this_rank);
+    MPI_Cart_coords(cart_comm, this_rank, 2, this_coord);
+    get_dim_counts(m, cart_comm, dim_counts);
 
 
     if (this_rank == 0) {
-        MPI_Cart_shift(cart_comm, 0, 1, &neighbours[LEFT], &neighbours);
-        cout <"This rank: " << this_rank << endl;
+        MPI_Cart_shift(cart_comm, 0, 1, &neighbours[0], &neighbours[1]);
+        cout << "This rank: " << this_rank << endl;
         cout << "Neighbors:";
         for (int n : neighbors) {
             cout << " n";
