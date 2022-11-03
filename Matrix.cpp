@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <math.h>
 #include "Matrix.h"
 using namespace std;
 
@@ -15,7 +16,7 @@ Matrix Matrix::get_detrm_subm(int split) {
         int x = split == -1 ? i - 1 : i;  // if already split, shift left
         for (int j = 1; j < this->size; j++) {
             new_m(x, j - 1) = (*this)(i, j);
-            arr[x + j - 1] = (*this)(i, j);
+            arr[x + (j - 1) * size] = (*this)(i, j);
         }
     }
     return new_m;
@@ -50,8 +51,24 @@ Matrix::Matrix(int n) {
         matrix[i] = new int[size];
         for (int j = 0; j < size; j++) {
             matrix[i][j] = 0;
-            arr[i + j] = 0;
+            arr[i + j * size] = 0;
         }
+    }
+}
+
+Matrix::Matrix(int* buff, int len) {
+    size = sqrt(len);
+    matrix = new int*[size];
+    arr = new int[len];
+    int i = 0;
+    int j = 0;
+    for (int ind = 0; ind < len; ind++) {
+        if (ind == size) {
+            j++;
+            i = 0;
+        }
+        matrix[i][j] = buff[ind];
+        arr[i + j * size] = buff[ind];
     }
 }
 
@@ -70,7 +87,7 @@ void Matrix::fill_rand() {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             matrix[i][j] = 3 - rand() % 4;
-            arr[i + j] = 0;
+            arr[i + j * size] = 0;
         }
     }
 }
@@ -96,9 +113,14 @@ Matrix Matrix::get_subm(int len, int x, int y) {
     for (int i = x; i < len + x; i++) {
         for (int j = y; j < len + y; j++) {
             new_m(i - x, j - y) = (*this)(i, j);
+            new_m.arr[i - x + (j - y) * size] = (*this)(i, j);
         }
     }
     return new_m;
+}
+
+int* Matrix::get_1d() {
+    return arr;
 }
 
 int Matrix::determinant() {

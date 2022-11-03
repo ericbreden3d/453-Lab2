@@ -6,10 +6,12 @@ class Matrix {
     int detrm_helper(Matrix m);
  public:
     Matrix(int n);
+    Matrix(int* buff, int len);
     ~Matrix();
     void fill_rand();
     Matrix operator*(Matrix& other);
     Matrix get_subm(int len, int x, int y);
+    int* get_1d();
     int determinant();
     int& operator()(int x, int y);
     void print();
