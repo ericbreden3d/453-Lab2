@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
         Matrix m(n);
         m.fill_rand();
         m.print();
-        Matrix sub = m.get_subm(5, 3, 2);
+        Matrix sub = m.get_subm(0, 3, 2);
         int* a = sub.get_1d();
         sub.print();
         for (int i = 0; i < 25; i++) {
