@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix m(n);
+        m.print();
         m.fill_rand();
         MPI_Request req;
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
