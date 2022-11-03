@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
     int periods[2] = {true, true};
     int this_coord[2];
     int neighbors[4];
-    MPI_Comm = cart_comm;
+    MPI_Comm cart_comm;
     int n = stoi(argv[1]);
 
     MPI_Init(&argc, &argv);
@@ -33,11 +33,11 @@ int main(int argc, char** argv) {
     // get new rank, cart coords, and amount of procs in each dim
     MPI_Comm_rank(cart_comm, &this_rank);
     MPI_Cart_coords(cart_comm, this_rank, 2, this_coord);
-    get_dim_counts(m, cart_comm, dim_counts);
+    get_dim_counts(2, cart_comm, dim_counts);
 
 
     if (this_rank == 0) {
-        MPI_Cart_shift(cart_comm, 0, 1, &neighbours[0], &neighbours[1]);
+        MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
         cout << "This rank: " << this_rank << endl;
         cout << "Neighbors:";
         for (int n : neighbors) {

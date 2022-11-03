@@ -101,6 +101,7 @@ Matrix Matrix::operator*(Matrix& other) {
 int Matrix::determinant() {
     int result = detrm_helper(*this);
     cout << "Determinant : " << result << endl;
+    return result;
 }
 
 int& Matrix::operator()(int x, int y) {
