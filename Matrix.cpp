@@ -68,9 +68,11 @@ Matrix::Matrix(int* buff, int len) {
     for (int ind = 0; ind < len; ind++) {
         matrix[i][j] = buff[ind];
         arr[i + j * size] = buff[ind];
-        if (ind % size == size - 1) {
+        if (i == size - 1) {
             j++;
             i = 0;
+        } else {
+            i++;
         }
     }
 }
