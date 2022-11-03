@@ -66,7 +66,7 @@ Matrix::Matrix(int* buff, int len) {
     int i = 0;
     int j = 0;
     for (int ind = 0; ind < len; ind++) {
-        cout << i << " " << j << ind << " " << buff[ind] << endl;
+        // cout << i << " " << j << ind << " " << buff[ind] << endl;
         matrix[i][j] = buff[ind];
         arr[i + j * size] = buff[ind];
         if (i == size - 1) {
