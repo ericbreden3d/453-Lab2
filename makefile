@@ -1,6 +1,6 @@
 lab2: run
 
-run: lab2
+run:
 	./lab2
 
 comp: lab2.cpp Matrix.cpp Matrix.h

@@ -57,7 +57,10 @@ Matrix::Matrix(int n) {
     size = n;
     matrix = new int*[size];
     for (int i = 0; i < size; i++) {
-        matrix[i] = new int[size]{};
+        matrix[i] = new int[size];
+        for (int j = 0; j < size; j++) {
+            matrix[i][j] = 0;
+        }
     }
 }
 
