@@ -38,20 +38,20 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         Matrix m(n);
         m.fill_rand();
-        m.print();
-        int test = 8;
-        Matrix sub = m.get_subm(test, 2, 4);
-        int* a = sub.get_1d();
-        sub.print();
-        for (int i = 0; i < test*test; i++) {
-            cout << a[i] << " ";
-        }
-        cout << endl;
-
-        Matrix sub2(a, test*test);
-        sub2.print();
+        MPI_Request req;
+        MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
+              cart_comm, &req);
     }
 
+    if (this_rank == 1) {
+        int buf[n];
+        MPI_Recv(buf, n, MPI_INT, 0, 0,
+             cart_comm, stat);
+        for (int i = 0; i < n; i++) {
+            cout << buf[i] << " ";
+        }
+        cout << endl;
+    }
 }
 
 
