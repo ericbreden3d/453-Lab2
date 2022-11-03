@@ -40,7 +40,12 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
         Matrix sub = m.get_subm(5, 3, 2);
+        int* a = sub.get_1d();
         sub.print();
+        for (int num : a) {
+            cout << a << " ";
+        }
+        cout << endl;
     }
 
 }
