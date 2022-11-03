@@ -37,11 +37,11 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix m(n);
-        Matrix sub = m(5, 3, 2);
+        Matrix sub = m.get_subm(5, 3, 2);
         sub.print();
     }
 
-
+}
 
 
 
@@ -74,13 +74,6 @@ int main(int argc, char** argv) {
     //         cout << " " << n;
     //     }
     //     cout << endl;  
-
-    
-    }
-
-    
-
-}
 
 
 
