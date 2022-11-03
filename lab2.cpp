@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
 
     if (this_rank == 1) {
         MPI_Status stat;
-        int buf[n];
-        MPI_Recv(buf, n, MPI_INT, 0, 0,
+        int buf[n*n];
+        MPI_Recv(buf, n*n, MPI_INT, 0, 0,
              cart_comm, &stat);
         for (int i = 0; i < n; i++) {
             cout << buf[i] << " ";
