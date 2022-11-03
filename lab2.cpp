@@ -40,12 +40,9 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
         MPI_Request req;
-        for (int i = 0; i < n*n; i++) {
-            cout << m.get_1d()[i] << " ";
-        }
-        cout << endl;
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
               cart_comm, &req);
+        cout << "D: " << m.determinant() << endl;
     }
 
     if (this_rank == 1) {
