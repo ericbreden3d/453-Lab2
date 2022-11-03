@@ -21,7 +21,7 @@ Matrix Matrix::get_detrm_subm(int split) {
     return new_m;
 }
 
-int Matrix::detrm_helper(Matrix m) {
+int Matrix::detrm_helper(Matrix& m) {
     if (m.size == 1) {
         return m(0, 0);
     }
