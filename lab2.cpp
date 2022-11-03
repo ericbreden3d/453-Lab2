@@ -35,12 +35,15 @@ int main(int argc, char** argv) {
     MPI_Cart_coords(cart_comm, this_rank, 2, this_coord);
     get_dim_counts(2, cart_comm, dim_counts);
 
-
+    int n_coord[2] = {0, 1};
+    int src_rank[2];
     if (this_rank == 0) {
         MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
         MPI_Cart_shift(cart_comm, 1, 1, &neighbors[2], &neighbors[4]);
+        MPI_Cart_rank(cart_comm, n_coord, &src_rank);
         cout << "This coord: " << this_coord[0] << "," << this_coord[1] << endl;
         cout << "This rank: " << this_rank << endl;
+        cout << "Left neighbor rank " << n_coord[0] << "," << n_coord[1] << endl;
         cout << "Neighbors:";
         for (int n : neighbors) {
             cout << " " << n;
