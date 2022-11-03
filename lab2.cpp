@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     int n_coord[2] = {0, 1};
-    int src_rank[2];
+    int src_rank;
     if (this_rank == 0) {
         MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
         MPI_Cart_shift(cart_comm, 1, 1, &neighbors[2], &neighbors[4]);
