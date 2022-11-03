@@ -15,6 +15,7 @@ Matrix Matrix::get_subm(int split) {
         int x = split == -1 ? i - 1 : i;  // if already split, shift left
         for (int j = 1; j < this->size; j++) {
             new_m(x, j - 1) = (*this)(i, j);
+            arr[x + j - 1] = (*this)(i, j);
         }
     }
     // new_m.print();
@@ -56,10 +57,12 @@ Matrix::Matrix(int n) {
     // cout << "Creating matrix" << endl;
     size = n;
     matrix = new int*[size];
+    arr = new int[size * size];
     for (int i = 0; i < size; i++) {
         matrix[i] = new int[size];
         for (int j = 0; j < size; j++) {
             matrix[i][j] = 0;
+            arr[i + j] = 0;
         }
     }
 }
@@ -70,6 +73,7 @@ Matrix::~Matrix() {
         delete[] matrix[i];
     }
     delete[] matrix;
+    delete[] arr;
 }
 
 void Matrix::fill_rand() {
@@ -78,6 +82,7 @@ void Matrix::fill_rand() {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             matrix[i][j] = 3 - rand() % 4;
+            arr[i + j] = 0;
         }
     }
 }
@@ -97,6 +102,19 @@ Matrix Matrix::operator*(Matrix& other) {
     }
     return new_m;
 }
+
+// int MPI_Sendrecv(const void* buffer_send,
+//                  int count_send,
+//                  MPI_Datatype datatype_send,
+//                  int recipient,
+//                  int tag_send,
+//                  void* buffer_recv,
+//                  int count_recv,
+//                  MPI_Datatype datatype_recv,
+//                  int sender,
+//                  int tag_recv,
+//                  MPI_Comm communicator,
+//                  MPI_Status* status);
 
 int Matrix::determinant() {
     int result = detrm_helper(*this);

@@ -1,5 +1,6 @@
 class Matrix {
     int** matrix;
+    int* arr;  // also maintain 1-D array for sending
     int size;
     Matrix get_subm(int split);
     int detrm_helper(Matrix m);
