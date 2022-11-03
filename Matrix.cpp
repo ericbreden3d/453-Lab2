@@ -92,8 +92,9 @@ void Matrix::fill_rand() {
     srand(time(NULL));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            matrix[i][j] = 3 - rand() % 4;
-            arr[i + j * size] = 0;
+            int r = 3 - rand() % 4;
+            matrix[i][j] = r;
+            arr[i + j * size] = r;
         }
     }
 }

@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
               cart_comm, &req);
     }
 
-    if (this_rank == 1) {
+    if (this_rank == 10) {
         MPI_Status stat;
         int buf[n*n];
         MPI_Recv(buf, n*n, MPI_INT, 0, 0,
