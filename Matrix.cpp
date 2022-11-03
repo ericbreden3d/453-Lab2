@@ -28,7 +28,8 @@ int Matrix::detrm_helper(Matrix m) {
     int op = 1;
     int detrm = 0;
     for (int i = 0; i < m.size; i++) {
-        int rec = detrm_helper(m.get_detrm_subm(i));
+        Matrix sub = m.get_detrm_subm(i);
+        int rec = detrm_helper(sub);
         int result = m(i, 0) * rec;
         if (op) {
             detrm += result;
