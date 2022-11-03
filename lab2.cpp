@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
         for (int n : neighbors) {
             cout << " n";
         }
-        cout << endl; 
+        cout << endl;  
     }
 }
 
