@@ -132,7 +132,6 @@ int* Matrix::get_1d() {
 
 int Matrix::determinant() {
     int result = detrm_helper(*this);
-    cout << "Determinant : " << result << endl;
     return result;
 }
 
