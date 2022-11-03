@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
         cout << "This rank: " << this_rank << endl;
         cout << "Neighbors:";
         for (int n : neighbors) {
-            cout << " n";
+            cout << " " << n;
         }
         cout << endl;  
     }
