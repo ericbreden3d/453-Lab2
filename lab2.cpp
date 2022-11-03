@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
         Matrix sub = m.get_subm(5, 3, 2);
         int* a = sub.get_1d();
         sub.print();
-        for (int i = 0; i < n * n; i++) {
+        for (int i = 0; i < 25; i++) {
             cout << a[i] << " ";
         }
         cout << endl;
