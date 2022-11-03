@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     int dim_counts[2];
     int periods[2] = {true, true};
     int this_coord[2];
-    int neighbors[4];
+    int neighbors[4] = {};
     MPI_Comm cart_comm;
     int n = stoi(argv[1]);
 
