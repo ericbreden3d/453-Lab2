@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         MPI_Status stat;
         int buf[n];
         MPI_Recv(buf, n, MPI_INT, 0, 0,
-             cart_comm, stat);
+             cart_comm, &stat);
         for (int i = 0; i < n; i++) {
             cout << buf[i] << " ";
         }
