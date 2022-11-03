@@ -66,12 +66,12 @@ Matrix::Matrix(int* buff, int len) {
     int i = 0;
     int j = 0;
     for (int ind = 0; ind < len; ind++) {
-        if (ind == size) {
+        matrix[i][j] = buff[ind];
+        arr[i + j * size] = buff[ind];
+        if (ind % size == size - 1) {
             j++;
             i = 0;
         }
-        matrix[i][j] = buff[ind];
-        arr[i + j * size] = buff[ind];
     }
 }
 
