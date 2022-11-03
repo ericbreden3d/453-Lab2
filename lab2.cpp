@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
         MPI_Cart_rank(cart_comm, n_coord, &n_rank);
         cout << "This coord: " << this_coord[0] << "," << this_coord[1] << endl;
         cout << "This rank: " << this_rank << endl;
-        cout << "Left neighbor rank " << &n_rank << endl;
+        cout << "Left neighbor rank " << n_rank << endl;
         cout << "Neighbors:";
         for (int n : neighbors) {
             cout << " " << n;
