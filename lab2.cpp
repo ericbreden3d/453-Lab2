@@ -39,10 +39,11 @@ int main(int argc, char** argv) {
         Matrix m(n);
         m.fill_rand();
         m.print();
-        Matrix sub = m.get_subm(3, 0, 0);
+        int test;
+        Matrix sub = m.get_subm(test, 0, 0);
         int* a = sub.get_1d();
         sub.print();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < test*test; i++) {
             cout << a[i] << " ";
         }
         cout << endl;
