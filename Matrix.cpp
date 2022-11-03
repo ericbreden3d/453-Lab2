@@ -113,7 +113,7 @@ Matrix Matrix::get_subm(int len, int x, int y) {
     for (int i = x; i < len + x; i++) {
         for (int j = y; j < len + y; j++) {
             new_m(i - x, j - y) = (*this)(i, j);
-            new_m.arr[i - x + (j - y) * size] = (*this)(i, j);
+            new_m.arr[i - x + (j - y) * len] = (*this)(i, j);
         }
     }
     return new_m;
