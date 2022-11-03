@@ -37,8 +37,9 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix m(n);
-        // Matrix sub = m.get_subm(5, 3, 2);
-        // sub.print();
+        m.print();
+        Matrix sub = m.get_subm(5, 3, 2);
+        sub.print();
     }
 
 }
