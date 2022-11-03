@@ -3,7 +3,7 @@ class Matrix {
     int* arr;  // also maintain 1-D array for sending
     int size;
     Matrix get_detrm_subm(int split);
-    int detrm_helper(Matrix m);
+    int detrm_helper(Matrix& m);
  public:
     Matrix(int n);
     Matrix(int* buff, int len);
