@@ -162,7 +162,7 @@ int main(int argc, char** argv) {
             parts[i].print();
         }
     } else {
-        cout << i << " received" << endl;
+        cout << "" << " received" << endl;
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
 }
