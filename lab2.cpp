@@ -51,11 +51,13 @@ int main(int argc, char** argv) {
             for (int j = 0; j < n; j+=sub_sz) {
                 // cout << i << " " << j << endl;
                 Matrix sub = m.get_subm(sub_sz, i, j);
+                cout << sub.arr << endl;
+                cout << sub.get_1d();
                 // parts[ind] = p;
                 // cout << p << " " << parts[ind]<< endl;
-                for (int k = 0; k < sub_sz * sub_sz; k++) {
-                    cout << sub.arr[k] << " ";
-                }
+                // for (int k = 0; k < sub_sz * sub_sz; k++) {
+                //     cout << sub.arr[k] << " ";
+                // }
                 ind++;
             }
             cout << endl;
