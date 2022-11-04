@@ -143,6 +143,7 @@ int main(int argc, char** argv) {
         }
     }
 
+    MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
 
 
