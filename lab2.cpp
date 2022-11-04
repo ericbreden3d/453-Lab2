@@ -111,6 +111,8 @@ int main(int argc, char** argv) {
         B = Matrix(buf, sub_n);
     }
 
+    cout << this_rank << endl;
+
     MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
 }
