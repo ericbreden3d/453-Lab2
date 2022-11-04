@@ -50,10 +50,11 @@ int main(int argc, char** argv) {
         for (int i = 0; i < n; i+=sub_sz) {
             for (int j = 0; j < n; j+=sub_sz) {
                 // cout << i << " " << j << endl;
-                parts[ind++] = m.get_subm(sub_sz, i, j).get_1d();
+                parts[ind] = m.get_subm(sub_sz, i, j).get_1d();
                  for (int k = 0; k < sub_sz * sub_sz; k++) {
                     cout << parts[ind][k] << " ";
                  }
+                 ind++;
             }
             cout << endl;
         }
