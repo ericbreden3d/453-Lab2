@@ -42,7 +42,9 @@ int Matrix::detrm_helper(Matrix& m) {
     return detrm;
 }
 
-Matrix::Matrix() {}
+Matrix::Matrix() {
+    cout << "Default Constructor Called" << endl;
+}
 
 Matrix::Matrix(int n) {
     // cout << "Creating matrix" << endl;
