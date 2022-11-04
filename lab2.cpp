@@ -102,7 +102,6 @@ int main(int argc, char** argv) {
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
         B = Matrix(buf, sub_n);
     }
-    return 0;
 
     MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
