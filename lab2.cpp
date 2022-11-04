@@ -79,8 +79,10 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    cout << this_coord[0] << "," << "has" << endl;
-    A.print();
+    if (this_rank == 1) {
+        cout << this_coord[0] << "," << "has" << endl;
+        A.print();
+    }
 
     return 0;
 
