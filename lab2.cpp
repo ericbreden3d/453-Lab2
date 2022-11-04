@@ -59,6 +59,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < n*n; i++) {
             cout << buf[i] << " ";
         }
+        cout << endl;
         for (int i = 0; i < n*n; i++) {
             cout << a[i] << " ";
         }
