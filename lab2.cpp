@@ -91,23 +91,26 @@ int main(int argc, char** argv) {
                     MPI_Cart_shift(cart_comm, 0, i, &A_src, &A_dest);
                     MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
                     int buf[sub_n*sub_n];
-                    // MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
-                    // A = Matrix(buf, sub_n);
+                    MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+                    A = Matrix(buf, sub_n);
 
                     int A_coord[2];
                     MPI_Cart_coords(cart_comm, A_dest, 2, A_coord);
                     // cout << i << "," << j << " " << "sending to " << A_coord[0] << "," << A_coord[1] << endl;
+
+                    cout << "DONE A " << this_coord[0] << "," << this_coord[1] << endl;
+
                 }
                 if (j != 0) {
                     MPI_Cart_shift(cart_comm, 1, j, &B_src, &B_dest);
                     MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
                     int buf[sub_n*sub_n];
-                    // MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-                    // B = Matrix(buf, sub_n);
-
+                    MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+                    B = Matrix(buf, sub_n);
+                    cout << "DONE B " << this_coord[0] << "," << this_coord[1] << endl;
                     int B_coord[2];
                     MPI_Cart_coords(cart_comm, B_dest, 2, B_coord);
-                    cout << i << "," << j << " " << "sending to " << B_coord[0] << "," << B_coord[1] << endl;
+                    // cout << i << "," << j << " " << "sending to " << B_coord[0] << "," << B_coord[1] << endl;
                 }
                 
             }
