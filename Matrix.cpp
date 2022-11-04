@@ -135,7 +135,7 @@ Matrix Matrix::operator*(Matrix& other) {
 }
 
 Matrix& Matrix::operator=(const Matrix& other) {
-    // cout << "Copy Operator Called" << endl;
+    cout << "Copy Operator Called" << endl;
     size = other.size;
     matrix = new int*[size];
     arr = new int[size * size];
