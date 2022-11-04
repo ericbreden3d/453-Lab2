@@ -56,16 +56,16 @@ int main(int argc, char** argv) {
                     cout << parts[ind][k] << " ";
                 }
                 ind++;
-            }
             cout << endl;
+            }
         }
 
-        for (int i = 0; i < num_procs; i++) {
-            for (int j = 0; j < sub_sz * sub_sz; j++) {
-                cout << parts[i][j] << " ";
-            }
-            cout << endl;
-        }
+        // for (int i = 0; i < num_procs; i++) {
+        //     for (int j = 0; j < sub_sz * sub_sz; j++) {
+        //         cout << parts[i][j] << " ";
+        //     }
+        //     cout << endl;
+        // }
 
         // MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
         //       cart_comm, &req);
