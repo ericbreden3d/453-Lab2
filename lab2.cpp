@@ -90,10 +90,10 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    if (this_rank == 1) {
+    // if (this_rank == 1) {
         // cout << this_coord[0] << "," << this_coord[1] << endl;
-        A.print();
-    }
+        // A.print();
+    // }
         
 
     // Initial Send Alignment
@@ -144,6 +144,7 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix parts[num_procs];
+        parts[0] = sum;
         for (int i = 0; i < num_procs; i++) {
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, i, 0, cart_comm, &stat);
@@ -152,6 +153,8 @@ int main(int argc, char** argv) {
             parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
             parts[i].print();
         }
+    } else {
+        Mpi_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
 }
 
