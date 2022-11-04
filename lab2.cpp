@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
         return 0;
 
         Matrix m(n);
-        m.fill_rand();
+        m.fill_rand(1);
         m.print();
 
         Matrix parts[num_procs] = {};
