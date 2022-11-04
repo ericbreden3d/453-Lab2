@@ -48,6 +48,8 @@ int main(int argc, char** argv) {
         a.fill_rand();
         b.fill_rand();
         Matrix res = a * b;
+        a.print();
+        b.print();
         res.print();
         return 0;
 
