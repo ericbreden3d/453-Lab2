@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
             for (int j = 0; j < dims[1]; j++) {
                 if (i == 0 && j == 0) continue;
                 int targ_rank;
-                MPI_Cart_rank(cart_comm, [i, j], &targ_rank);
+                MPI_Cart_rank(cart_comm, {i, j}, &targ_rank);
                 MPI_Isend(parts[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm, &req);
             }
         }
