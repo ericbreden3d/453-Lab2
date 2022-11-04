@@ -79,6 +79,11 @@ int main(int argc, char** argv) {
         B = A;
     }
 
+    cout << this_coord[0] << "," << "has" << endl;
+    A.print();
+
+    return
+
     // Initial Send Alignment
     int A_src;
     int B_src;
@@ -105,9 +110,6 @@ int main(int argc, char** argv) {
 
     MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
-
-
-
 }
 
 
