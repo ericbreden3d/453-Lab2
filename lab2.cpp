@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
                 // cout << i << " " << j << endl;
                 Matrix sub = m.get_subm(sub_sz, i, j);
                 cout << sub.arr << endl;
-                cout << sub.get_1d();
+                cout << sub.get_1d() << endl;
                 // parts[ind] = p;
                 // cout << p << " " << parts[ind]<< endl;
                 // for (int k = 0; k < sub_sz * sub_sz; k++) {
