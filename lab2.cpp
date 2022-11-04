@@ -147,9 +147,6 @@ int main(int argc, char** argv) {
         sum = sum + (A * B);
     }
 
-    if (this_rank == 1)
-        sum.print();
-    
     if (this_rank == 0) {
         Matrix parts[num_procs] = {};
         parts[0] = sum;
@@ -162,6 +159,7 @@ int main(int argc, char** argv) {
             parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
         }
         for (int i = 0; i < num_procs; i++) {
+            cout << "Rank " << i << ":\n";
             parts[i].print();
         }
     } else {
