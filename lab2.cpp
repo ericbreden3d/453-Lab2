@@ -143,13 +143,14 @@ int main(int argc, char** argv) {
     }
 
     if (this_rank == 0) {
+        Matrix parts[num_procs];
         for (int i = 0; i < num_procs; i++) {
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, i, 0, cart_comm, &stat);
             int coord[2];
             MPI_Cart_coords(cart_comm, i, 2, coord);
-            parts[i][j] = Matrix(buf, sub_n);
-            parts[i][j].print();
+            parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
+            parts[i].print();
         }
     }
 }
