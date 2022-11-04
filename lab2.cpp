@@ -92,14 +92,14 @@ int main(int argc, char** argv) {
                     MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
                     int buf[sub_n*sub_n];
                     MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
-                    A = Matrix(buf, sub_n);
+                    // A = Matrix(buf, sub_n);
                 }
                 if (j != 0) {
                     MPI_Cart_shift(cart_comm, 1, j, &B_src, &B_dest);
                     MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
                     int buf[sub_n*sub_n];
                     MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-                    B = Matrix(buf, sub_n);
+                    // B = Matrix(buf, sub_n);
                 }
                 int A_coord[2];
                 MPI_Cart_coords(cart_comm, A_dest, 2, A_coord);
