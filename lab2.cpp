@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < n; i+=sub_n) {
             for (int j = 0; j < n; j+=sub_n) {
                 // cout << i << " " << j << endl;
-                parts[ind++] = m.get_subm(sub_n, j, i);
+                parts[ind++] = m.get_subm(sub_n, i, j);
                 // m.get_subm(sub_n, j, i).print();
                 // parts[ind].print();
             }
