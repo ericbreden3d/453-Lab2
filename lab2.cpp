@@ -88,6 +88,7 @@ int main(int argc, char** argv) {
         MPI_Cart_shift(cart_comm, 0, this_coord[0], &A_src, &A_dest);
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
         cout << this_rank << " to " << A_dest << endl;
+        cout << this_coord[0] << "," << this_coord[1] << endl;
     }
     return 0;
     if (this_coord[1] != 0) {
