@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
 
-        for (int i = 0; i < dims[0]; i+=sub_sz) {
-            for (int j = 0; j < dims[1]; j+=sub_sz) {
+        for (int i = 0; i < n; i+=sub_sz) {
+            for (int j = 0; j < n; j+=sub_sz) {
                 cout << i << " " << j << endl;
             }
         }
