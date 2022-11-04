@@ -22,15 +22,17 @@ int main(int argc, char** argv) {
     int this_coord[2];
     int neighbors[4] = {};
     int n = stoi(argv[1]);
-    int sub_sz;
+    int sub_n;
     MPI_Comm cart_comm;
     MPI_Request req;
     MPI_Status stat;
+    Matrix A;
+    Matrix B;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &this_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
-    sub_sz = n / sqrt(num_procs);
+    sub_n = n / sqrt(num_procs);
 
     MPI_Dims_create(num_procs, 2, dims);
     MPI_Cart_create(MPI_COMM_WORLD, 2, dims, periods, true, &cart_comm);
@@ -47,23 +49,44 @@ int main(int argc, char** argv) {
 
         Matrix parts[num_procs];
         int ind = 0;
-        for (int i = 0; i < n; i+=sub_sz) {
-            for (int j = 0; j < n; j+=sub_sz) {
+        for (int i = 0; i < n; i+=sub_n) {
+            for (int j = 0; j < n; j+=sub_n) {
                 // cout << i << " " << j << endl;
-                parts[ind++] = m.get_subm(sub_sz, j, i);
-                // m.get_subm(sub_sz, j, i).print();
+                parts[ind++] = m.get_subm(sub_n, j, i);
+                // m.get_subm(sub_n, j, i).print();
                 // parts[ind].print();
             }
         }
 
-        for (int i = 0; i < num_procs; i++) {
-            parts[i].print();
+        // for (int i = 0; i < num_procs; i++) {
+        //     parts[i].print();
+        // }
+        ind = 0;
+        for (int i = 0; i < dim[0]; i++) {
+            for (int j = 0; j < dims[1]; j++) {
+                if (i == 0 && j == 0) continue;
+                int targ_rank;
+                MPI_Cart_rank(cart_comm, [i, j], &targ_rank);
+                MPI_Isend(parts[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm, &req);
+            }
         }
+        
+        // root doesn't ned to send/recv to itself
+        A = parts[0];
+        B = parts[0];
+    } else {
+        int* buf[sub_n * sub_n];
+        MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, cart_comm, &stat);
+        A = Matrix(buf);
+        B = A;
 
-        // MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
-        //       cart_comm, &req);
-        // cout << "Determinant: " << m.determinant() << endl;
+        A.print();
     }
+
+    
+
+
+
 }
 
 
