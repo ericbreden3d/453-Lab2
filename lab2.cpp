@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         Matrix b(n);
         a.fill_rand(1);
         b.fill_rand(2);
-        Matrix res = a * b;
+        Matrix res = a + b;
         a.print();
         b.print();
         res.print();
