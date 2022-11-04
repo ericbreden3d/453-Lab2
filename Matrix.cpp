@@ -137,7 +137,7 @@ Matrix Matrix::operator*(Matrix& other) {
 
 Matrix& Matrix::operator=(const Matrix& other) {
     // cout << "Copy Operator Called" << endl;
-    if (size == 0) {
+    if (size != 0) {
         for (int i = 0; i < size; i++) {
             delete[] matrix[i];
         }
