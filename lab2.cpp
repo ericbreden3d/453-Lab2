@@ -45,12 +45,12 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
 
-        Matrix parts[num_procs];
+        int* parts[num_procs];
         int ind = 0;
         for (int i = 0; i < n; i+=sub_sz) {
             for (int j = 0; j < n; j+=sub_sz) {
                 // cout << i << " " << j << endl;
-                parts[ind++] = m.get_subm(sub_sz, i, j);
+                parts[ind++] = m.get_subm(sub_sz, i, j).get_1d();
             }
         }
 
