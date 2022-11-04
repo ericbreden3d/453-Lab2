@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    cout << this_coord[0] << "," << this_coord[1] << " is " << this_rank << << endl << endl;
+    cout << this_coord[0] << "," << this_coord[1] << " is " << this_rank << endl << endl;
 
     // Initial Send Alignment
     int A_src;
