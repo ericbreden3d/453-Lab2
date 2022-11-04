@@ -44,6 +44,7 @@ int Matrix::detrm_helper(Matrix& m) {
 
 Matrix::Matrix() {
     // cout << "Default Constructor Called" << endl;
+    size = 0;
 }
 
 Matrix::Matrix(int n) {
@@ -136,11 +137,13 @@ Matrix Matrix::operator*(Matrix& other) {
 
 Matrix& Matrix::operator=(const Matrix& other) {
     // cout << "Copy Operator Called" << endl;
-    for (int i = 0; i < size; i++) {
-        delete[] matrix[i];
+    if (size == 0) {
+        for (int i = 0; i < size; i++) {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+        delete[] arr;
     }
-    delete[] matrix;
-    delete[] arr;
 
     size = other.size;
     matrix = new int*[size];
