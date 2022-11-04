@@ -44,10 +44,9 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix a(n);
-        for (int i = 0; i < 2147483647; i++) {}
         Matrix b(n);
-        a.fill_rand();
-        b.fill_rand();
+        a.fill_rand(1);
+        b.fill_rand(2);
         Matrix res = a * b;
         a.print();
         b.print();

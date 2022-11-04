@@ -10,7 +10,7 @@ class Matrix {
     Matrix(int* buff, int size);
     Matrix(const Matrix& other);
     ~Matrix();
-    void fill_rand();
+    void fill_rand(int seed);
     Matrix operator*(const Matrix& other);
     Matrix operator+(const Matrix& other);
     Matrix& operator=(const Matrix& other);
