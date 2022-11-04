@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <math.h>
 #include <mpi.h>
 #include "Matrix.h"
 using namespace std;
