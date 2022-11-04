@@ -8,7 +8,7 @@ class Matrix {
     Matrix();
     Matrix(int n);
     Matrix(int* buff, int len);
-    Matrix(Matrix& other);
+    Matrix(const Matrix& other);
     ~Matrix();
     void fill_rand();
     Matrix operator*(Matrix& other);

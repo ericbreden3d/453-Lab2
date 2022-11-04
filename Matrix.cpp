@@ -80,7 +80,7 @@ Matrix::Matrix(int* buf, int len) {
     }
 }
 
-Matrix::Matrix(Matrix& other) {
+Matrix::Matrix(const Matrix& other) {
     cout << "Copy Constructor Called" << endl;
     size = other.size;
     matrix = new int*[size];
