@@ -62,11 +62,12 @@ int main(int argc, char** argv) {
         //     parts[i].print();
         // }
         ind = 0;
-        for (int i = 0; i < dim[0]; i++) {
+        for (int i = 0; i < dims[0]; i++) {
             for (int j = 0; j < dims[1]; j++) {
                 if (i == 0 && j == 0) continue;
                 int targ_rank;
-                MPI_Cart_rank(cart_comm, {i, j}, &targ_rank);
+                int coord[2] = {i, j};
+                MPI_Cart_rank(cart_comm, coord, &targ_rank);
                 MPI_Isend(parts[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm, &req);
             }
         }
