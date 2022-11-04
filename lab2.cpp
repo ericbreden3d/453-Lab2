@@ -147,8 +147,8 @@ int main(int argc, char** argv) {
         sum = sum + (A * B);
     }
 
-    // if (this_rank == 1)
-    //     sum.print();
+    if (this_rank == 1)
+        sum.print();
     
     if (this_rank == 0) {
         Matrix parts[num_procs] = {};
