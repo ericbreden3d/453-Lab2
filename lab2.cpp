@@ -83,15 +83,28 @@ int main(int argc, char** argv) {
     for (int i = 0; i < dims[0]; i++) {
         for (int j = 0; j < dims[1]; j++) {
             if (this_coord[0] == i && this_coord[1] == j) {
-                int src_rank;
+                int A_src;
+                int B_src;
                 int A_dest;
                 int B_dest;
-                MPI_Cart_shift(cart_comm, 0, i, &src_rank, &A_dest);
-                MPI_Cart_shift(cart_comm, 1, j, &src_rank, &B_dest);
-                MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
-                MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
+                if (i != 0) {
+                    MPI_Cart_shift(cart_comm, 0, i, &A_src, &A_dest);
+                    MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
+                    int buf[sub_n*sub_n];
+                    MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+                    A = Matrix(buf, sub_n);
+                }
+                if (j != 0) {
+                    MPI_Cart_shift(cart_comm, 1, j, &B_src, &B_dest);
+                    MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
+                    int buf[sub_n*sub_n];
+                    MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+                    B = Matrix(buf, sub_n);
+                }
                 int A_coord[2];
                 MPI_Cart_coords(cart_comm, A_dest, 2, A_coord);
+                // int B_coord[2];
+                // MPI_Cart_coords(cart_comm, B_dest, 2, B_coord);
                 cout << i << "," << j << " " << "sending to " << A_coord[0] << "," << A_coord[1] << endl;
             }
         }

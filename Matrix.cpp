@@ -136,6 +136,12 @@ Matrix Matrix::operator*(Matrix& other) {
 
 Matrix& Matrix::operator=(const Matrix& other) {
     // cout << "Copy Operator Called" << endl;
+    for (int i = 0; i < size; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+    delete[] arr;
+
     size = other.size;
     matrix = new int*[size];
     arr = new int[size * size];
