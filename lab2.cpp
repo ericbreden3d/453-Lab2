@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
         // for (int i = 0; i < num_procs; i++) {
         //     parts[i].print();
         // }
-        ind = 0;
+        ind = 1;
         for (int i = 0; i < dims[0]; i++) {
             for (int j = 0; j < dims[1]; j++) {
                 if (i == 0 && j == 0) continue;
