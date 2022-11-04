@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     MPI_Status stat;
     Matrix A;
     Matrix B;
-    return 0;
+
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &this_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
@@ -82,34 +82,34 @@ int main(int argc, char** argv) {
     cout << this_coord[0] << "," << "has" << endl;
     A.print();
 
-    return;
+    return 0;
 
     // Initial Send Alignment
-    // int A_src;
-    // int B_src;
-    // int A_dest;
-    // int B_dest;
-    // if (this_coord[0] != 0) {
-    //     MPI_Cart_shift(cart_comm, 0, this_coord[0], &A_src, &A_dest);
-    //     MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
-    // }
-    // if (this_coord[1] != 0) {
-    //     MPI_Cart_shift(cart_comm, 1, this_coord[1], &B_src, &B_dest);
-    //     MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
-    // }
-    // if (this_coord[0] != 0){
-    //     int buf[sub_n*sub_n];
-    //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
-    //     A = Matrix(buf, sub_n);
-    // }
-    // if (this_coord[1] != 0) {
-    //     int buf[sub_n*sub_n];
-    //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-    //     B = Matrix(buf, sub_n);
-    // }
+    int A_src;
+    int B_src;
+    int A_dest;
+    int B_dest;
+    if (this_coord[0] != 0) {
+        MPI_Cart_shift(cart_comm, 0, this_coord[0], &A_src, &A_dest);
+        MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
+    }
+    if (this_coord[1] != 0) {
+        MPI_Cart_shift(cart_comm, 1, this_coord[1], &B_src, &B_dest);
+        MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
+    }
+    if (this_coord[0] != 0){
+        int buf[sub_n*sub_n];
+        MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+        A = Matrix(buf, sub_n);
+    }
+    if (this_coord[1] != 0) {
+        int buf[sub_n*sub_n];
+        MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+        B = Matrix(buf, sub_n);
+    }
 
-    // MPI_Barrier(cart_comm);
-    // cout << "Initial alignment complete\n";
+    MPI_Barrier(cart_comm);
+    cout << "Initial alignment complete\n";
 }
 
 
