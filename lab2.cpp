@@ -51,16 +51,17 @@ int main(int argc, char** argv) {
             for (int j = 0; j < n; j+=sub_sz) {
                 // cout << i << " " << j << endl;
                 // parts[ind++] = m.get_subm(sub_sz, i, j).get_1d();
-                m.get_subm(sub_sz, j, i).print();
+                Matrix sub = m.get_subm(sub_sz, j, i);   // maybe flip back
+                sub.print();
             }
         }
 
-        for (int i = 0; i < num_procs; i++) {
-            for (int j = 0; j < sub_sz * sub_sz; j++) {
-                cout << parts[i][j] << " ";
-            }
-            cout << endl;
-        }
+        // for (int i = 0; i < num_procs; i++) {
+        //     for (int j = 0; j < sub_sz * sub_sz; j++) {
+        //         cout << parts[i][j] << " ";
+        //     }
+        //     cout << endl;
+        // }
 
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
               cart_comm, &req);
