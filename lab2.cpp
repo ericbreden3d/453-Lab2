@@ -95,11 +95,13 @@ int main(int argc, char** argv) {
     if (this_coord[0] != 0) {
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
         cout << this_rank << " to " << A_dest << endl << endl;
-        // cout << this_coord[0] << "," << this_coord[1] << endl;
+        cout << this_coord[0] << "," << this_coord[1] << endl;
     }
     if (this_coord[1] != 0) {
         MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
+        cout << this_rank << " to " << B_dest << endl << endl;
     }
+    return 0;
     if (this_coord[0] != 0){
         int buf[sub_n*sub_n];
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
@@ -110,8 +112,6 @@ int main(int argc, char** argv) {
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
         B = Matrix(buf, sub_n);
     }
-
-    cout << this_rank << endl;
 
     MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
