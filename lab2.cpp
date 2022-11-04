@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
         B = Matrix(buf, sub_n);
     }
 
-    if (this_rank == 1) {
+    if (this_rank == 0) {
         A.print();
         B.print();
     }
