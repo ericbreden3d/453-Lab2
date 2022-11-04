@@ -45,10 +45,17 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
 
+        Matrix parts[num_procs];
+        int ind = 0;
         for (int i = 0; i < n; i+=sub_sz) {
             for (int j = 0; j < n; j+=sub_sz) {
-                cout << i << " " << j << endl;
+                // cout << i << " " << j << endl;
+                parts[ind++] = m.get_subm(sub_sz, i, j);
             }
+        }
+
+        for (int i = 0; i < num_procs; i++) {
+            parts.print();
         }
 
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,

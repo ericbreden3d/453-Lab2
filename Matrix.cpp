@@ -145,7 +145,7 @@ void Matrix::print() {
         for (int j = 0; j < size; j++) {
             cout << (*this)(j, i) << " ";
         }
-        cout << endl;;
+        cout << "\n\n";
     }
     cout << endl;
 }
