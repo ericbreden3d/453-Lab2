@@ -128,7 +128,7 @@ int main(int argc, char** argv) {
     cout << "Initial alignment complete\n";
 
     // Calc and shift
-    Matrix sum;
+    Matrix sum(sub_n);
     sum = sum + (A * B);
     sum.print();
     for (int i = 1; i < dims[0]; i++) {
