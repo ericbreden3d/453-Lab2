@@ -56,7 +56,6 @@ int main(int argc, char** argv) {
                  }
             }
             cout << endl;
-            }
         }
 
         for (int i = 0; i < num_procs; i++) {
@@ -66,11 +65,10 @@ int main(int argc, char** argv) {
             cout << endl;
         }
 
-        MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
-              cart_comm, &req);
+        // MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
+        //       cart_comm, &req);
         // cout << "Determinant: " << m.determinant() << endl;
     }
-
 }
 
 
