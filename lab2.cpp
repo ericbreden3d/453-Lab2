@@ -75,6 +75,7 @@ int main(int argc, char** argv) {
         // root doesn't ned to send/recv to itself
         A = parts[0];
         B = parts[0];
+        a.print();
         MPI_Barrier(cart_comm);
     } else {
         int buf[sub_n * sub_n];
