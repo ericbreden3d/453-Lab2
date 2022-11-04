@@ -12,7 +12,7 @@ void get_dim_counts(int m, MPI_Comm comm, int* dims_arr) {
     MPI_Cart_get(comm, m, dims_arr, periods, coords);
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) {    
     int this_rank;
     int num_procs;
     int dims[2] = {0, 0};
@@ -22,10 +22,12 @@ int main(int argc, char** argv) {
     int neighbors[4] = {};
     MPI_Comm cart_comm;
     int n = stoi(argv[1]);
+    int sub_sz;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &this_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
+    sub_sz = n / sqrt(num_procs);
 
     MPI_Dims_create(num_procs, 2, dims);
     MPI_Cart_create(MPI_COMM_WORLD, 2, dims, periods, true, &cart_comm);
@@ -40,12 +42,12 @@ int main(int argc, char** argv) {
         m.fill_rand();
         m.print();
         MPI_Request req;
-        // MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
-        //       cart_comm, &req);
+        MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
+              cart_comm, &req);
         cout << "D: " << m.determinant() << endl;
     }
 
-    if (this_rank == 10) {
+    if (this_rank == 1) {
         MPI_Status stat;
         int buf[n*n];
         MPI_Recv(buf, n*n, MPI_INT, 0, 0,
