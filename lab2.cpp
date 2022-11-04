@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
     // Calc and shift
     Matrix sum(sub_n);
     sum = sum + (A * B);
-    sum.print();
+    if (this_rank == 1) sum.print();
     for (int i = 1; i < dims[0]; i++) {
         MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, 1, &B_src, &B_dest);
