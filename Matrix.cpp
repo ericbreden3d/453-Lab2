@@ -127,7 +127,7 @@ Matrix Matrix::operator*(const Matrix& other) {
             for (int k = 0; k < size; k++) {
                 // cout << (*this)(k, i) << " " << other(j, k) << endl;
                 // cout << (*this)(i, k) << " " << other(k, j) << endl;
-                sum += (*this)(k, i) * other.matrix[j][k];
+                sum += (*this)(i, k) * other.matrix[k][j];
             }
             new_m(i, j) = sum;
         }
@@ -196,7 +196,7 @@ void Matrix::print() {
     // cout << "Printing matrix" << endl;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            cout << (*this)(j, i) << " ";
+            cout << (*this)(i, j) << " ";
         }
         cout << endl;
     }
