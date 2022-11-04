@@ -43,7 +43,7 @@ int Matrix::detrm_helper(Matrix& m) {
 }
 
 Matrix::Matrix() {
-    cout << "Default Constructor Called" << endl;
+    // cout << "Default Constructor Called" << endl;
 }
 
 Matrix::Matrix(int n) {
@@ -84,7 +84,7 @@ Matrix::Matrix(int* buf, int size) {
 }
 
 Matrix::Matrix(const Matrix& other) {
-    cout << "Copy Constructor Called" << endl;
+    // cout << "Copy Constructor Called" << endl;
     size = other.size;
     matrix = new int*[size];
     arr = new int[size * size];
@@ -135,7 +135,7 @@ Matrix Matrix::operator*(Matrix& other) {
 }
 
 Matrix& Matrix::operator=(const Matrix& other) {
-    cout << "Copy Operator Called" << endl;
+    // cout << "Copy Operator Called" << endl;
     size = other.size;
     matrix = new int*[size];
     arr = new int[size * size];
@@ -174,7 +174,7 @@ int& Matrix::operator()(int x, int y) {
 }
 
 void Matrix::print() {
-    cout << "Printing matrix" << endl;
+    // cout << "Printing matrix" << endl;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             cout << (*this)(j, i) << " ";
