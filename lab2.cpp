@@ -142,7 +142,10 @@ int main(int argc, char** argv) {
         B = Matrix(buf, sub_n);
         sum = sum + (A * B);
     }
-    sum.print();
+
+    if (this_rank == 1)
+        sum.print();
+    
     if (this_rank == 0) {
         Matrix parts[num_procs];
         parts[0] = sum;
