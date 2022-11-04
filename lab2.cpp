@@ -68,6 +68,7 @@ int main(int argc, char** argv) {
                 int targ_rank;
                 int coord[2] = {i, j};
                 MPI_Cart_rank(cart_comm, coord, &targ_rank);
+                parts[ind].print();
                 MPI_Isend(parts[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm, &req);
             }
         }
@@ -75,8 +76,7 @@ int main(int argc, char** argv) {
         // root doesn't ned to send/recv to itself
         A = parts[0];
         B = parts[0];
-        A.print();
-        MPI_Barrier(cart_comm);
+        // A.print();
     } else {
         int buf[sub_n * sub_n];
         MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
@@ -84,18 +84,15 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    if (this_rank == 1) {
-        A.print();
-        MPI_Barrier(cart_comm);
-    }
-    if (this_rank == 2) {
-        MPI_Barrier(cart_comm);
-        A.print();
-    }
-    if (this_rank == 3) {
-        MPI_Barrier(cart_comm);
-        A.print();
-    }
+    // if (this_rank == 1) {
+    //     A.print();
+    // }
+    // if (this_rank == 2) {
+    //     A.print();
+    // }
+    // if (this_rank == 3) {
+    //     A.print();
+    // }
 
     
 
