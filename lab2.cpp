@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
         A = Matrix(buf, sub_n);
     }
-    if (this_rank == 3) {
+    if (this_rank == 0) {
         cout << "hello" << endl;
     }
     return 0;
