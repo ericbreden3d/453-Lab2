@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
         A = parts[0];
         B = parts[0];
     } else {
-        intbuf[sub_n * sub_n];
+        int buf[sub_n * sub_n];
         MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, cart_comm, &stat);
         A = Matrix(buf);
         B = A;
