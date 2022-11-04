@@ -46,6 +46,7 @@ int main(int argc, char** argv) {
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
               cart_comm, &req);
         cout << "D: " << m.determinant() << endl;
+        cout << endl;
     }
 
     if (this_rank == 1) {
@@ -55,6 +56,9 @@ int main(int argc, char** argv) {
              cart_comm, &stat);
         Matrix m(buf, n);
         int* a = m.get_1d();
+        for (int i = 0; i < n*n; i++) {
+            cout << buf[i] << " ";
+        }
         for (int i = 0; i < n*n; i++) {
             cout << a[i] << " ";
         }

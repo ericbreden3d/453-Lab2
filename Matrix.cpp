@@ -56,7 +56,7 @@ Matrix::Matrix(int n) {
     }
 }
 
-Matrix::Matrix(int* buff, int len) {
+Matrix::Matrix(int* buf, int len) {
     size = sqrt(len);
     matrix = new int*[size];
     for (int i = 0; i < size; i++) {
@@ -67,8 +67,8 @@ Matrix::Matrix(int* buff, int len) {
     int j = 0;
     for (int ind = 0; ind < len; ind++) {
         // cout << i << " " << j << ind << " " << buff[ind] << endl;
-        matrix[i][j] = buff[ind];
-        arr[i + j * size] = buff[ind];
+        matrix[i][j] = buf[ind];
+        arr[i + j * size] = buf[ind];
         if (i == size - 1) {
             j++;
             i = 0;
