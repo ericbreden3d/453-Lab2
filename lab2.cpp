@@ -55,7 +55,10 @@ int main(int argc, char** argv) {
         }
 
         for (int i = 0; i < num_procs; i++) {
-            parts.print();
+            for (int j = 0; j < sub_sz * sub_sz; j++) {
+                cout << parts[i][j] << " ";
+            }
+            cout << endl;
         }
 
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
