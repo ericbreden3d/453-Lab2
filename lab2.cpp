@@ -75,6 +75,7 @@ int main(int argc, char** argv) {
         // root doesn't ned to send/recv to itself
         A = parts[0];
         B = parts[0];
+        MPI_Barrier(cart_comm);
     } else {
         int buf[sub_n * sub_n];
         MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
@@ -82,7 +83,18 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    A.print();
+    if (this_rank == 1) {
+        A.print();
+        MPI_Barrier(cart_comm);
+    }
+    if (this_rank == 2) {
+        MPI_Barrier(cart_comm);
+        A.print();
+    }
+    if (this_rank == 3) {
+        MPI_Barrier(cart_comm);
+        A.print();
+    }
 
     
 
