@@ -5,6 +5,7 @@ class Matrix {
     Matrix get_detrm_subm(int split);
     int detrm_helper(Matrix& m);
  public:
+    Matrix();
     Matrix(int n);
     Matrix(int* buff, int len);
     Matrix(const Matrix& other);

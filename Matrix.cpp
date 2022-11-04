@@ -42,6 +42,8 @@ int Matrix::detrm_helper(Matrix& m) {
     return detrm;
 }
 
+Matrix::Matrix() {}
+
 Matrix::Matrix(int n) {
     // cout << "Creating matrix" << endl;
     size = n;
