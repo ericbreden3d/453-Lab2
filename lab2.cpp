@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
         a.print();
         b.print();
         res.print();
+        cout << "dete: " << res.determinant();
         return 0;
 
         Matrix m(n);
