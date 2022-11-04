@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
     } else {
         int buf[sub_n * sub_n];
         MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
-        A = Matrix(buf, sub_sz);
+        A = Matrix(buf, sub_n);
         B = A;
 
         A.print();
