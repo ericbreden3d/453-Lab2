@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
     }
 
     if (this_rank == 1) {
-        cout << this_coord[0] << "," << "has" << endl;
+        cout << this_coord[0] << "," << this_coord[1] << " has" << endl;
         A.print();
     }
 
