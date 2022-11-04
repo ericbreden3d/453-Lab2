@@ -97,11 +97,12 @@ int main(int argc, char** argv) {
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
         A = Matrix(buf, sub_n);
     }
-    if (this_coord[1] != 0) {
-        int buf[sub_n*sub_n];
-        MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-        B = Matrix(buf, sub_n);
-    }
+    if (this_rank == 3) A.print();
+    // if (this_coord[1] != 0) {
+    //     int buf[sub_n*sub_n];
+    //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+    //     B = Matrix(buf, sub_n);
+    // }
 
     MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
