@@ -119,7 +119,7 @@ void Matrix::fill_rand() {
     }
 }
 
-Matrix Matrix::operator*(Matrix& other) {
+Matrix Matrix::operator*(const Matrix& other) {
     Matrix new_m(size);
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -127,9 +127,19 @@ Matrix Matrix::operator*(Matrix& other) {
             for (int k = 0; k < size; k++) {
                 // cout << (*this)(k, i) << " " << other(j, k) << endl;
                 // cout << (*this)(i, k) << " " << other(k, j) << endl;
-                sum += (*this)(k, i) * other(j, k);
+                sum += (*this)(k, i) * other.matrix[j][k];
             }
-            new_m(j, i) = sum;
+            new_m(i, j) = sum;
+        }
+    }
+    return new_m;
+}
+
+Matrix Matrix::operator+(const Matrix& other) {
+    Matrix new_m(size);
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            new_m(i, j) = (*this)(i, j) + other.matrix[i][j];
         }
     }
     return new_m;

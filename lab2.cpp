@@ -43,6 +43,14 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
+        Matrix a(n);
+        Matrix b(n);
+        a.fill_rand();
+        b.fill_rand();
+        Matrix res = a * b;
+        res.print();
+        return 0;
+
         Matrix m(n);
         m.fill_rand();
         m.print();
@@ -90,6 +98,7 @@ int main(int argc, char** argv) {
     int B_src;
     int A_dest;
     int B_dest;
+    int buf[sub_n * sub_n];
     MPI_Cart_shift(cart_comm, 1, this_coord[0], &A_src, &A_dest);
     MPI_Cart_shift(cart_comm, 0, this_coord[1], &B_src, &B_dest);
     if (this_coord[0] != 0) {
@@ -99,26 +108,38 @@ int main(int argc, char** argv) {
         MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
     }
     if (this_coord[0] != 0){
-        int buf[sub_n*sub_n];
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
         A = Matrix(buf, sub_n);
     }
     if (this_coord[1] != 0) {
-        int buf[sub_n*sub_n];
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
         B = Matrix(buf, sub_n);
     }
 
-    if (this_rank == 2) {
-        A.print();
-        B.print();
-    }
+    // if (this_rank == 2) {
+    //     A.print();
+    //     B.print();
+    // }
 
     MPI_Barrier(cart_comm);
     cout << "Initial alignment complete\n";
+
+    // Calc and shift
+    Matrix sum;
+    for (int i = 0; i < dims[0]; i++) {
+        sum = sum + (A * B);
+        MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
+        MPI_Cart_shift(cart_comm, 0, 1, &B_src, &B_dest);
+        MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
+        MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
+        MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+        A = Matrix(buf, sub_n);
+        MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+        B = Matrix(buf, sub_n);
+    }
 }
 
-
+ 
 
 
     

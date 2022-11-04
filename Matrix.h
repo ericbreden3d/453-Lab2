@@ -11,7 +11,8 @@ class Matrix {
     Matrix(const Matrix& other);
     ~Matrix();
     void fill_rand();
-    Matrix operator*(Matrix& other);
+    Matrix operator*(const Matrix& other);
+    Matrix operator+(const Matrix& other);
     Matrix& operator=(const Matrix& other);
     Matrix get_subm(int len, int x, int y);
     int* get_1d();
