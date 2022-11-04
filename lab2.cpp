@@ -43,16 +43,16 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
-        Matrix a(n);
-        Matrix b(n);
-        a.fill_rand(1);
-        b.fill_rand(2);
-        Matrix res = a + b;
-        a.print();
-        b.print();
-        res.print();
-        cout << "dete: " << res.determinant();
-        return 0;
+        // Matrix a(n);
+        // Matrix b(n);
+        // a.fill_rand(1);
+        // b.fill_rand(2);
+        // Matrix res = a + b;
+        // a.print();
+        // b.print();
+        // res.print();
+        // cout << "dete: " << res.determinant();
+        // return 0;
 
         Matrix m(n);
         m.fill_rand(1);
@@ -90,10 +90,11 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    // if (this_rank == 1) {
-    //     // cout << this_coord[0] << "," << this_coord[1] << endl;
-    //     A.print();
-    // }
+    if (this_rank == 1) {
+        // cout << this_coord[0] << "," << this_coord[1] << endl;
+        A.print();
+    }
+    return 0;
         
 
     // Initial Send Alignment
