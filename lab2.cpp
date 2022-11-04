@@ -153,7 +153,7 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         Matrix parts[num_procs] = {};
         parts[0] = sum;
-        for (int i = 0; i < num_procs; i++) {
+        for (int i = 1; i < num_procs; i++) {
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, i, 0, cart_comm, &stat);
             int coord[2];
@@ -162,7 +162,6 @@ int main(int argc, char** argv) {
             parts[i].print();
         }
     } else {
-        cout << "" << " received" << endl;
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
 }
