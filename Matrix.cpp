@@ -78,6 +78,19 @@ Matrix::Matrix(int* buf, int len) {
     }
 }
 
+Matrix::Matrix(const Matrix& other) {
+    size = other.size;
+    matrix = new int*[size];
+    arr = new int[size * size];
+    for (int i = 0; i < size; i++) {
+        matrix[i] = new int[size];
+        for (int j = 0; j < size; j++) {
+            matrix[i][j] = other.matrix[i][j];
+            arr[i + j * size] = other.matrix[i][j];
+        }
+    }
+}
+
 Matrix::~Matrix() {
     // cout << "Deleting matrix" << endl;
     for (int i = 0; i < size; i++) {

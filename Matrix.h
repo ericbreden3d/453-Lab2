@@ -1,13 +1,13 @@
 class Matrix {
     int** matrix;
-    
+    int* arr;  // also maintain 1-D array for sending
     int size;
     Matrix get_detrm_subm(int split);
     int detrm_helper(Matrix& m);
  public:
-    int* arr;  // also maintain 1-D array for sending
     Matrix(int n);
     Matrix(int* buff, int len);
+    Matrix(const Matrix& other);
     ~Matrix();
     void fill_rand();
     Matrix operator*(Matrix& other);
