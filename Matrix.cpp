@@ -60,8 +60,9 @@ Matrix::Matrix(int n) {
     }
 }
 
-Matrix::Matrix(int* buf, int len) {
-    size = sqrt(len);
+Matrix::Matrix(int* buf, int size) {
+    this->size = size;
+    int len = size * size;
     matrix = new int*[size];
     for (int i = 0; i < size; i++) {
         matrix[i] = new int[size];

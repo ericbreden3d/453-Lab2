@@ -7,7 +7,7 @@ class Matrix {
  public:
     Matrix();
     Matrix(int n);
-    Matrix(int* buff, int len);
+    Matrix(int* buff, int size);
     Matrix(const Matrix& other);
     ~Matrix();
     void fill_rand();
