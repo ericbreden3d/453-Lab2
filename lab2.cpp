@@ -97,7 +97,6 @@ int main(int argc, char** argv) {
         cout << this_rank << " to " << A_dest << endl << endl;
         // cout << this_coord[0] << "," << this_coord[1] << endl;
     }
-    return 0;
     if (this_coord[1] != 0) {
         MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
     }
