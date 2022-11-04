@@ -21,9 +21,11 @@ int main(int argc, char** argv) {
     int periods[2] = {true, true};
     int this_coord[2];
     int neighbors[4] = {};
-    MPI_Comm cart_comm;
     int n = stoi(argv[1]);
     int sub_sz;
+    MPI_Comm cart_comm;
+    MPI_Request req;
+    MPI_Status stat;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &this_rank);
@@ -42,31 +44,18 @@ int main(int argc, char** argv) {
         Matrix m(n);
         m.fill_rand();
         m.print();
-        MPI_Request req;
+
+        for (int i = 0; i < dims[0]; i+=sub_sz) {
+            for (int j = 0; j < dims[1]; j+=sub_sz) {
+                cout << i << " " << j << endl;
+            }
+        }
+
         MPI_Isend(m.get_1d(), n*n, MPI_INT, 1, 0,
               cart_comm, &req);
-        cout << "D: " << m.determinant() << endl;
-        cout << endl;
+        // cout << "Determinant: " << m.determinant() << endl;
     }
 
-    if (this_rank == 1) {
-        MPI_Status stat;
-        int buf[n*n];
-        MPI_Recv(buf, n*n, MPI_INT, 0, 0,
-             cart_comm, &stat);
-        Matrix m(buf, n*n);
-        int* a = m.get_1d();
-        for (int i = 0; i < n*n; i++) {
-            cout << buf[i] << " ";
-        }
-        cout << endl;
-        for (int i = 0; i < n*n; i++) {
-            cout << a[i] << " ";
-        }
-        cout << endl;
-        cout << endl;
-        m.print();
-    }
 }
 
 
