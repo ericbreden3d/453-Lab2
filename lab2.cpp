@@ -94,7 +94,6 @@ int main(int argc, char** argv) {
         // cout << this_coord[0] << "," << this_coord[1] << endl;
         A.print();
     }
-    return 0;
         
 
     // Initial Send Alignment
@@ -130,8 +129,8 @@ int main(int argc, char** argv) {
 
     // Calc and shift
     Matrix sum;
-    for (int i = 0; i < dims[0]; i++) {
-        sum = sum + (A * B);
+    sum = sum + (A * B);
+    for (int i = 1; i < dims[0]; i++) {
         MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, 1, &B_src, &B_dest);
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
@@ -140,6 +139,18 @@ int main(int argc, char** argv) {
         A = Matrix(buf, sub_n);
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
         B = Matrix(buf, sub_n);
+        sum = sum + (A * B);
+    }
+
+    if (this_rank == 0) {
+        for (int i = 0; i < num_procs; i++) {
+            int buf[sub_n * sub_n];
+            MPI_Recv(buf, sub_n * sub_n, MPI_INT, i, 0, cart_comm, &stat);
+            int coord[2];
+            MPI_Cart_coords(cart_comm, i, 2, coord);
+            parts[i][j] = Matrix(buf, sub_n);
+            parts[i][j].print();
+        }
     }
 }
 
