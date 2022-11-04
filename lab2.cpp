@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
                 // cout << i << " " << j << endl;
                 parts[ind] = m.get_subm(sub_sz, i, j).get_1d();
                  for (int k = 0; k < sub_sz * sub_sz; k++) {
-                    cout << << "param " << ind << " " << k << endl;
+                    cout << "param " << ind << " " << k << endl;
                     cout << parts[ind][k] << " ";
                  }
                  ind++;
