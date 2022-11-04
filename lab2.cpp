@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
             for (int j = 0; j < n; j+=sub_sz) {
                 // cout << i << " " << j << endl;
                 parts[ind++] = m.get_subm(sub_sz, j, i);
+                parts[ind-1].print();
             }
         }
 
