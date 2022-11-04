@@ -64,6 +64,8 @@ int main(int argc, char** argv) {
             cout << a[i] << " ";
         }
         cout << endl;
+        cout << endl;
+        m.print();
     }
 }
 
