@@ -53,8 +53,10 @@ int main(int argc, char** argv) {
         int buf[n*n];
         MPI_Recv(buf, n*n, MPI_INT, 0, 0,
              cart_comm, &stat);
+        Matrix m(buf);
+        int* a = m.get_1d();
         for (int i = 0; i < n*n; i++) {
-            cout << buf[i] << " ";
+            cout << a[i] << " ";
         }
         cout << endl;
     }
