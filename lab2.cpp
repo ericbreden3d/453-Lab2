@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         // Matrix a(n);
         // Matrix b(n);
-        // a.fill_rand(1);
-        // b.fill_rand(2);
+        // a.fill_rand();
+        // b.fill_rand();
         // Matrix res = a + b;
         // a.print();
         // b.print();
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
         // return 0;
 
         Matrix m(n);
-        m.fill_rand(1);
+        m.fill_rand();
         m.print();
 
         Matrix parts[num_procs] = {};
