@@ -79,10 +79,10 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    if (this_rank == 1) {
-        // cout << this_coord[0] << "," << this_coord[1] << endl;
-        A.print();
-    }
+    // if (this_rank == 1) {
+    //     // cout << this_coord[0] << "," << this_coord[1] << endl;
+    //     A.print();
+    // }
         
 
     // Initial Send Alignment
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
     if (this_coord[0] != 0) {
         MPI_Cart_shift(cart_comm, 0, this_coord[0], &A_src, &A_dest);
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
-        // cout << this_rank << " to " << A_dest << endl;
+        cout << this_rank << " to " << A_dest << << end << endl;
         // cout << this_coord[0] << "," << this_coord[1] << endl;
     }
     return 0;
