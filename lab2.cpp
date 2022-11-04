@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
                 parts[ind] = p;
                 cout << p << " " << parts[ind]<< endl;
                 for (int k = 0; k < sub_sz * sub_sz; k++) {
-                    cout << parts[ind][k] << " ";
+                    cout << p[k] << " ";
                 }
                 ind++;
             }
