@@ -133,6 +133,21 @@ Matrix Matrix::operator*(Matrix& other) {
     return new_m;
 }
 
+Matrix& Matrix::operator=(const Matrix& other) {
+    cout << "Copy Operator Called" << endl;
+    size = other.size;
+    matrix = new int*[size];
+    arr = new int[size * size];
+    for (int i = 0; i < size; i++) {
+        matrix[i] = new int[size];
+        for (int j = 0; j < size; j++) {
+            matrix[i][j] = other.matrix[i][j];
+            arr[i + j * size] = other.matrix[i][j];
+        }
+    }
+    return *this;
+}
+
 Matrix Matrix::get_subm(int len, int x, int y) {
     Matrix new_m(len);
     for (int i = x; i < len + x; i++) {
