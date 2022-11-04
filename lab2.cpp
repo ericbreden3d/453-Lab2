@@ -82,8 +82,7 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    A.print();
-    
+    cout << A.determinant() << endl;    
     
 
 
