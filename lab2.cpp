@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
         m.fill_rand();
         // m.print();
         // (m * m).print();
-        serial_result = (m * m).determinant();
+        // serial_result = (m * m).determinant();
 
         Matrix parts[num_procs] = {};
         int ind = 0;
@@ -141,8 +141,8 @@ int main(int argc, char** argv) {
             }
         }
         // assem.print();
-        cout << "Serial result: " << serial_result << endl;
-        cout << "Parallel result " << assem.determinant() << endl;
+        // cout << "Serial result: " << serial_result << endl;
+        // cout << "Parallel result " << assem.determinant() << endl;
     }
 
     MPI_Finalize();
