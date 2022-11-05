@@ -107,9 +107,9 @@ Matrix::~Matrix() {
     delete[] arr;
 }
 
-void Matrix::fill_rand() {
+void Matrix::fill_rand(int seed = -1) {
     // cout << "Filling with random values" << endl;
-    srand(time(NULL));
+    srand(seed == -1 ? time(NULL) : seed);
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             int r = 3 - rand() % 4;

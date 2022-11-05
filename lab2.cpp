@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 
     if (this_rank == 0) {
         Matrix m(n);
-        m.fill_rand();
+        m.fill_rand(1);
         // m.print();
         // (m * m).print();
         serial_result = (m * m).determinant();
