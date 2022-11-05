@@ -54,10 +54,19 @@ int main(int argc, char** argv) {
                 parts[ind++] = m.get_subm(sub_n, i, j);
             }
         }
+        Matrix assem(n*n);
         for (int i = 0; i < num_procs; i++) {
             cout << "Rank " << i << ":\n";
             parts[i].print();
         }
+        ind = 0;
+        for (int i = 0; i < n; i+=sub_n) {
+            for (int j = 0; j < n; j+=sub_n) {
+                assem.add_subm(parts[ind++], sub_n, i, j);
+            }
+        }
+
+        assem.print();
 
         ind = 1;
         for (int i = 0; i < dims[0]; i++) {

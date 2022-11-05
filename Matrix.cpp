@@ -125,8 +125,6 @@ Matrix Matrix::operator*(const Matrix& other) {
         for (int j = 0; j < size; j++) {
             int sum = 0;
             for (int k = 0; k < size; k++) {
-                // cout << (*this)(k, i) << " " << other(j, k) << endl;
-                // cout << (*this)(i, k) << " " << other(k, j) << endl;
                 sum += (*this)(i, k) * other.matrix[k][j];
             }
             new_m(i, j) = sum;
@@ -176,20 +174,17 @@ Matrix Matrix::get_subm(int len, int x, int y) {
             new_m.arr[i + j * len] = (*this)(i + x, j + y);
         }
     }
-    // for (int i = x; i < len + x; i++) {
-    //     for (int j = y; j < len + y; j++) {
-    //         new_m(i - x, j - y) = (*this)(i, j);
-    //         new_m.arr[i - x + (j - y) * len] = (*this)(i, j);
-    //     }
-    // }
     return new_m;
 }
 
-// Matrix Matrix::add_subm(const Matrix& m, int len, int x, int y) {
-//     for (int i = x; i < len; i++) {
-//         for (int j = 0)
-//     }
-// }
+Matrix Matrix::add_subm(Matrix& sub, int len, int x, int y) {
+    for (int i = 0; i < len; i++) {
+        for (int j = 0; j < len; j++) {
+            (*this)(i + x, j + y) = sub(i, j);
+            this->arr[(i + x) + (j + y) * len] = sub(i, j);
+        }
+    }
+}
 
 int* Matrix::get_1d() {
     return arr;

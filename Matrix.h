@@ -15,6 +15,7 @@ class Matrix {
     Matrix operator+(const Matrix& other);
     Matrix& operator=(const Matrix& other);
     Matrix get_subm(int len, int x, int y);
+    Matrix add_subm(Matrix& sub, int len, int x, int y);
     int* get_1d();
     int determinant();
     int& operator()(int x, int y);
