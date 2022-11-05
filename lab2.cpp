@@ -119,6 +119,8 @@ int main(int argc, char** argv) {
         sum = sum + (A * B);
     }
 
+    MPI_Barrier(cart_comm);
+
     // collect submatrices at root and assemble matrix
     if (this_rank != 0) {
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
