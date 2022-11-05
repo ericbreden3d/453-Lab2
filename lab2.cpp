@@ -55,10 +55,6 @@ int main(int argc, char** argv) {
                 parts[ind++] = m.get_subm(sub_n, i, j);
             }
         }
-        for (int i = 0; i < num_procs; i++) {
-            cout << "Rank " << i << ":\n";
-            parts[i].print();
-        }
 
         ind = 1;
         for (int i = 0; i < dims[0]; i++) {
@@ -132,7 +128,7 @@ int main(int argc, char** argv) {
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, i, 0, cart_comm, &stat);
             int coord[2];
             MPI_Cart_coords(cart_comm, i, 2, coord);
-            parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
+            parts[coord[1] + coord[0] * dims[0]] = Matrix(buf, sub_n);
         }
         for (int i = 0; i < num_procs; i++) {
             cout << "Rank " << i << ":\n";
