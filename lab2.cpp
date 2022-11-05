@@ -115,6 +115,7 @@ int main(int argc, char** argv) {
     for (int i = 1; i < dims[0]; i++) {
         if (this_rank == 1) {
             cout << "coord " << this_coord[0] << "," << this_coord[1] << endl;
+            cout << "Rank " << this_rank << endl;
             cout << "A\n"; 
             A.print();
             cout << "B\n";
