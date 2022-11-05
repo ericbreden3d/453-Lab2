@@ -55,6 +55,10 @@ int main(int argc, char** argv) {
                 parts[ind++] = m.get_subm(sub_n, i, j);
             }
         }
+        for (int i = 0; i < num_procs; i++) {
+            cout << "Rank " << i << ":\n";
+            parts[i].print();
+        }
 
         ind = 1;
         for (int i = 0; i < dims[0]; i++) {
