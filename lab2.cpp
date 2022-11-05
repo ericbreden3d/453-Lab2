@@ -119,8 +119,10 @@ int main(int argc, char** argv) {
         sum = sum + (A * B);
     }
 
-    // collect submatrices at root adn assemble matrix
-    if (this_rank == 0) {
+    // collect submatrices at root and assemble matrix
+    if (this_rank != 0) {
+        MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
+    } else {
         Matrix parts[num_procs] = {};
         parts[0] = sum;
         int ind = 0;
@@ -141,8 +143,6 @@ int main(int argc, char** argv) {
         // assem.print();
         cout << "Serial result: " << serial_result << endl;
         cout << "Parallel result " << assem.determinant() << endl;
-    } else {
-        MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
 
     MPI_Finalize();
