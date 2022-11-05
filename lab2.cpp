@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
             int coord[2];
             MPI_Cart_coords(cart_comm, i, 2, coord);
             parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
-            parts_arr[]
+            // parts_arr[]
         }
         for (int i = 0; i < num_procs; i++) {
             cout << "Rank " << i << ":\n";
