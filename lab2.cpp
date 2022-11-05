@@ -79,6 +79,8 @@ int main(int argc, char** argv) {
         B = A;
     }
 
+    MPI_Barrier(cart_comm);
+
     // Initial Send Alignment
     int A_src;
     int B_src;
