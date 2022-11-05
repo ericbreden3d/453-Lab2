@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
                 int targ_rank;
                 int coord[2] = {i, j};
                 MPI_Cart_rank(cart_comm, coord, &targ_rank);
-                MPI_Isend(parts[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm, &req);
+                MPI_Isend(parts[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
             }
         }
         
@@ -88,10 +88,10 @@ int main(int argc, char** argv) {
     MPI_Cart_shift(cart_comm, 1, -this_coord[0], &A_src, &A_dest);
     MPI_Cart_shift(cart_comm, 0, -this_coord[1], &B_src, &B_dest);
     if (this_coord[0] != 0) {
-        MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
+        MPI_Send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
     }
     if (this_coord[1] != 0) {
-        MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
+        MPI_Send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
     }
     if (this_coord[0] != 0){
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
@@ -110,20 +110,18 @@ int main(int argc, char** argv) {
     for (int i = 1; i < dims[0]; i++) {
         MPI_Cart_shift(cart_comm, 1, -1, &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, -1, &B_src, &B_dest);
-        MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
-        MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
-        int buf2[sub_n * sub_n];
-        MPI_Recv(buf2, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
-        A = Matrix(buf2, sub_n);
-        int buf3[sub_n * sub_n];
-        MPI_Recv(buf3, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-        B = Matrix(buf3, sub_n);
+        MPI_Send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
+        MPI_Send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
+        MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+        A = Matrix(buf, sub_n);
+        MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+        B = Matrix(buf, sub_n);
         sum = sum + (A * B);
     }
 
     // collect submatrices at root and assemble matrix
     if (this_rank != 0) {
-        MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
+        MPI_Send(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm);
     } else {
         Matrix parts[num_procs] = {};
         parts[0] = sum;
