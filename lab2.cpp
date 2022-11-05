@@ -107,6 +107,11 @@ int main(int argc, char** argv) {
     Matrix sum(sub_n);
     sum = sum + (A * B);
     for (int i = 1; i < dims[0]; i++) {
+        if (this_rank == 1) {
+            A.print();
+            B.print();
+            sum.print();
+        }
         MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, 1, &B_src, &B_dest);
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
