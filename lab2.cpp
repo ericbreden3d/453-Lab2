@@ -43,17 +43,6 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
-        // Matrix a(n);
-        // Matrix b(n);
-        // a.fill_rand();
-        // b.fill_rand();
-        // Matrix res = a + b;
-        // a.print();
-        // b.print();
-        // res.print();
-        // cout << "dete: " << res.determinant();
-        // return 0;
-
         Matrix m(n);
         m.fill_rand();
         m.print();
@@ -91,12 +80,6 @@ int main(int argc, char** argv) {
         B = A;
     }
 
-    // if (this_rank == 1) {
-        // cout << this_coord[0] << "," << this_coord[1] << endl;
-        // A.print();
-    // }
-        
-
     // Initial Send Alignment
     int A_src;
     int B_src;
@@ -120,22 +103,12 @@ int main(int argc, char** argv) {
         B = Matrix(buf, sub_n);
     }
 
-    // if (this_rank == 2) {
-    //     A.print();
-    //     B.print();
-    // }
-
     MPI_Barrier(cart_comm);
     // cout << "Initial alignment complete\n";
 
     // Calc and shift
     Matrix sum(sub_n);
     sum = sum + (A * B);
-    // if (this_rank == 1) {
-    //     A.print();
-    //     B.print();
-    //     sum.print();
-    // }
     for (int i = 1; i < dims[0]; i++) {
         MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, 1, &B_src, &B_dest);
@@ -148,10 +121,10 @@ int main(int argc, char** argv) {
         sum = sum + (A * B);
     }
 
+    // collect submatrices at root adn assemble matrix
     if (this_rank == 0) {
         Matrix parts[num_procs] = {};
         parts[0] = sum;
-        int* parts_arr[n*n];
         int ind = 0;
         for (int i = 1; i < num_procs; i++) {
             int buf[sub_n * sub_n];
@@ -171,38 +144,6 @@ int main(int argc, char** argv) {
 
     MPI_Finalize();
 }
-
- 
-
-
-    
-    // if (this_rank == 0) {
-    //     int nl_coord[2] = {3, 0};
-    //     int nl_rank;
-    //     int nr_coord[2] = {1, 0};
-    //     int nr_rank;
-    //     int nu_coord[2] = {0, 1};
-    //     int nu_rank;
-    //     int nd_coord[2] = {0, 3};
-    //     int nd_rank;
-    //     MPI_Cart_shift(cart_comm, 0, 1, &neighbors[0], &neighbors[1]);
-    //     MPI_Cart_shift(cart_comm, 1, 1, &neighbors[2], &neighbors[3]);
-    //     MPI_Cart_rank(cart_comm, nl_coord, &nl_rank);
-    //     MPI_Cart_rank(cart_comm, nr_coord, &nr_rank);
-    //     MPI_Cart_rank(cart_comm, nu_coord, &nu_rank);
-    //     MPI_Cart_rank(cart_comm, nd_coord, &nd_rank);
-    //     cout << "Dims: " << dim_counts[0] << " " << dim_counts[1] << endl;
-    //     cout << "This coord: " << this_coord[0] << "," << this_coord[1] << endl;
-    //     cout << "This rank: " << this_rank << endl;
-    //     cout << "Left neighbor rank " << nl_rank << endl;
-    //     cout << "Right neighbor rank " << nr_rank << endl;
-    //     cout << "Up neighbor rank " << nu_rank << endl;
-    //     cout << "Down neighbor rank " << nd_rank << endl;
-    //     cout << "Neighbors:";
-    //     for (int n : neighbors) {
-    //         cout << " " << n;
-    //     }
-    //     cout << endl;  
 
 
 
