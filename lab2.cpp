@@ -24,6 +24,7 @@ int main(int argc, char** argv) {
     int n = stoi(argv[1]);
     int sub_n;
     int serial_result;
+    double start;
     MPI_Comm cart_comm;
     MPI_Request req;
     MPI_Status stat;
@@ -49,10 +50,12 @@ int main(int argc, char** argv) {
         // m.print();
         // (m * m).print();
 
-        double start = MPI_Wtime();
-        serial_result = (m * m).determinant();
-        cout << "Serial result: " << serial_result << endl;
-        cout << "Serial runtime: " << MPI_Wtime() - start << endl;
+        // double start = MPI_Wtime();
+        // serial_result = (m * m).determinant();
+        // cout << "Serial result: " << serial_result << endl;
+        // cout << "Serial runtime: " << MPI_Wtime() - start << endl;
+
+        start = MPI_Wtime();
 
         Matrix parts[num_procs] = {};
         int ind = 0;
@@ -146,7 +149,8 @@ int main(int argc, char** argv) {
         }
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
-        // cout << "Parallel result " << assem.determinant() << endl;
+        cout << "Parallel result: " << assem.determinant() << endl;
+        cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
     }
 
     MPI_Finalize();
