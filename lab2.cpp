@@ -48,7 +48,10 @@ int main(int argc, char** argv) {
         m.fill_rand(1);
         // m.print();
         // (m * m).print();
-        // serial_result = (m * m).determinant();
+
+        double start = MPI_Wtime();
+        serial_result = (m * m).determinant();
+        cout << "Serial runtime: " << MPI_Wtime() - start << endl;
 
         Matrix parts[num_procs] = {};
         int ind = 0;
