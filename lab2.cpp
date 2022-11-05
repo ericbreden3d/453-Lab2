@@ -62,11 +62,12 @@ int main(int argc, char** argv) {
         int ind = 0;
         for (int i = 0; i < n; i+=sub_n) {
             for (int j = 0; j < n; j+=sub_n) {
-                // cout << i << " " << j << endl;
                 parts[ind++] = m.get_subm(sub_n, i, j);
-                // m.get_subm(sub_n, j, i).print();
-                // parts[ind].print();
             }
+        }
+        for (int i = 0; i < num_procs; i++) {
+            cout << "Rank " << i << ":\n";
+            parts[i].print();
         }
 
         ind = 1;
@@ -160,10 +161,10 @@ int main(int argc, char** argv) {
             parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
             // parts_arr[]
         }
-        for (int i = 0; i < num_procs; i++) {
-            cout << "Rank " << i << ":\n";
-            parts[i].print();
-        }
+        // for (int i = 0; i < num_procs; i++) {
+        //     cout << "Rank " << i << ":\n";
+        //     parts[i].print();
+        // }
     } else {
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
