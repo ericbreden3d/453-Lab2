@@ -123,8 +123,8 @@ int main(int argc, char** argv) {
             cout << "Sum\n";
             sum.print();
         }
-        MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
-        MPI_Cart_shift(cart_comm, 0, 1, &B_src, &B_dest);
+        MPI_Cart_shift(cart_comm, 1, -1, &A_src, &A_dest);
+        MPI_Cart_shift(cart_comm, 0, -1, &B_src, &B_dest);
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
         MPI_Isend(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm, &req);
         MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
