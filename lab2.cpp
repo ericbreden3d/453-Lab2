@@ -141,8 +141,6 @@ int main(int argc, char** argv) {
         // assem.print();
         cout << "Serial result: " << serial_result << endl;
         cout << "Parallel result " << assem.determinant() << endl;
-        parallel_result = assem.determinant();
-
     } else {
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
