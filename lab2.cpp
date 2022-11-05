@@ -140,7 +140,7 @@ int main(int argc, char** argv) {
                 assem.add_subm(parts[ind++], sub_n, i, j);
             }
         }
-        // assem.print();
+        assem.print();
         // cout << "Serial result: " << serial_result << endl;
         // cout << "Parallel result " << assem.determinant() << endl;
     }
