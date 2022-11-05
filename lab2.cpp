@@ -54,19 +54,6 @@ int main(int argc, char** argv) {
                 parts[ind++] = m.get_subm(sub_n, i, j);
             }
         }
-        Matrix assem(n);
-        for (int i = 0; i < num_procs; i++) {
-            cout << "Rank " << i << ":\n";
-            parts[i].print();
-        }
-        ind = 0;
-        for (int i = 0; i < n; i+=sub_n) {
-            for (int j = 0; j < n; j+=sub_n) {
-                assem.add_subm(parts[ind++], sub_n, i, j);
-            }
-        }
-
-        assem.print();
 
         ind = 1;
         for (int i = 0; i < dims[0]; i++) {
@@ -141,12 +128,20 @@ int main(int argc, char** argv) {
             int coord[2];
             MPI_Cart_coords(cart_comm, i, 2, coord);
             parts[coord[0] + coord[1] * dims[0]] = Matrix(buf, sub_n);
-            // parts_arr[]
         }
-        // for (int i = 0; i < num_procs; i++) {
-        //     cout << "Rank " << i << ":\n";
-        //     parts[i].print();
-        // }
+        for (int i = 0; i < num_procs; i++) {
+            cout << "Rank " << i << ":\n";
+            parts[i].print();
+        }
+        Matrix assem(n);
+        ind = 0;
+        for (int i = 0; i < n; i+=sub_n) {
+            for (int j = 0; j < n; j+=sub_n) {
+                assem.add_subm(parts[ind++], sub_n, i, j);
+            }
+        }
+        assem.print();
+
     } else {
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
