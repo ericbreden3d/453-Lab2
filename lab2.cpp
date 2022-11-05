@@ -104,6 +104,10 @@ int main(int argc, char** argv) {
     // cout << "Initial alignment complete\n";
 
     // Calc and shift
+    if (this_rank == 1) {
+        A.print();
+        B.print();
+    }
     Matrix sum(sub_n);
     sum = sum + (A * B);
     for (int i = 1; i < dims[0]; i++) {
@@ -122,6 +126,11 @@ int main(int argc, char** argv) {
         B = Matrix(buf, sub_n);
         sum = sum + (A * B);
     }
+    if (this_rank == 1) {
+            A.print();
+            B.print();
+            sum.print();
+        }
 
     // collect submatrices at root adn assemble matrix
     if (this_rank == 0) {
