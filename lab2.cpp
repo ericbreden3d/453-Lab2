@@ -60,11 +60,11 @@ int main(int argc, char** argv) {
             parts[i].print();
         }
         ind = 0;
-        // for (int i = 0; i < n; i+=sub_n) {
-        //     for (int j = 0; j < n; j+=sub_n) {
-        //         assem.add_subm(parts[ind++], sub_n, i, j);
-        //     }
-        // }
+        for (int i = 0; i < n; i+=sub_n) {
+            for (int j = 0; j < n; j+=sub_n) {
+                assem.add_subm(parts[ind++], sub_n, i, j);
+            }
+        }
 
         assem.print();
 
