@@ -46,9 +46,9 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         Matrix m(n);
         m.fill_rand();
-        m.print();
+        // m.print();
         // (m * m).print();
-        // serial_result = (m * m).determinant();
+        serial_result = (m * m).determinant();
 
         Matrix parts[num_procs] = {};
         int ind = 0;
@@ -140,7 +140,7 @@ int main(int argc, char** argv) {
                 assem.add_subm(parts[ind++], sub_n, i, j);
             }
         }
-        assem.print();
+        // assem.print();
         // cout << "Serial result: " << serial_result << endl;
         // cout << "Parallel result " << assem.determinant() << endl;
     }
