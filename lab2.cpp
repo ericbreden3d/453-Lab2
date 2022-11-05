@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
     int neighbors[4] = {};
     int n = stoi(argv[1]);
     int sub_n;
+    int serial_result;
     MPI_Comm cart_comm;
     MPI_Request req;
     MPI_Status stat;
@@ -45,8 +46,9 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         Matrix m(n);
         m.fill_rand();
-        m.print();
-        (m * m).print();
+        // m.print();
+        // (m * m).print();
+        serial_result = (m * m).determinant();
 
         Matrix parts[num_procs] = {};
         int ind = 0;
@@ -103,26 +105,9 @@ int main(int argc, char** argv) {
     MPI_Barrier(cart_comm);
     // cout << "Initial alignment complete\n";
 
-    // Calc and shift
-    // if (this_rank == 1) {
-    //     cout << "coord " << this_coord[0] << "," << this_coord[1] << endl;
-    //     cout << "Rank " << this_rank << endl;
-    //     cout << "A\n"; 
-    //     A.print();
-    //     cout << "B\n";
-    //     B.print();
-    // }
     Matrix sum(sub_n);
     sum = sum + (A * B);
     for (int i = 1; i < dims[0]; i++) {
-        // if (this_rank == 1) {
-        //     cout << "A\n"; 
-        //     A.print();
-        //     cout << "B\n";
-        //     B.print();
-        //     cout << "Sum\n";
-        //     sum.print();
-        // }
         MPI_Cart_shift(cart_comm, 1, -1, &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, -1, &B_src, &B_dest);
         MPI_Isend(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm, &req);
@@ -133,14 +118,6 @@ int main(int argc, char** argv) {
         B = Matrix(buf, sub_n);
         sum = sum + (A * B);
     }
-    // if (this_rank == 1) {
-    //         cout << "A\n"; 
-    //         A.print();
-    //         cout << "B\n";
-    //         B.print();
-    //         cout << "Sum\n";
-    //         sum.print();
-    // }
 
     // collect submatrices at root adn assemble matrix
     if (this_rank == 0) {
@@ -165,7 +142,11 @@ int main(int argc, char** argv) {
                 assem.add_subm(parts[ind++], sub_n, i, j);
             }
         }
-        assem.print();
+        // assem.print();
+        cout << "Serial result: " << serial_result << endl;
+        cout << "Parallel result " << assem.determinant() << endl;
+        parallel_result = assem.determinant();
+
     } else {
         MPI_Isend(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &req);
     }
