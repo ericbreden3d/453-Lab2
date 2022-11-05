@@ -105,15 +105,20 @@ int main(int argc, char** argv) {
 
     // Calc and shift
     if (this_rank == 1) {
-        A.print();
-        B.print();
+        cout << "A\n"; 
+            A.print();
+            cout << "B\n";
+            B.print();
     }
     Matrix sum(sub_n);
     sum = sum + (A * B);
     for (int i = 1; i < dims[0]; i++) {
         if (this_rank == 1) {
+            cout << "A\n"; 
             A.print();
+            cout << "B\n";
             B.print();
+            cout << "Sum\n";
             sum.print();
         }
         MPI_Cart_shift(cart_comm, 1, 1, &A_src, &A_dest);
@@ -127,8 +132,11 @@ int main(int argc, char** argv) {
         sum = sum + (A * B);
     }
     if (this_rank == 1) {
+            cout << "A\n"; 
             A.print();
+            cout << "B\n";
             B.print();
+            cout << "Sum\n";
             sum.print();
         }
 
