@@ -56,6 +56,8 @@ int main(int argc, char** argv) {
         // cout << "Serial runtime: " << MPI_Wtime() - start << endl;
         // return 0;
 
+        start = MPI_Wtime();
+
         Matrix parts[num_procs] = {};
         int ind = 0;
         for (int i = 0; i < n; i+=sub_n) {
