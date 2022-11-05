@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
 
         double start = MPI_Wtime();
         serial_result = (m * m).determinant();
+        cout << "Serial result: " << serial_result << endl;
         cout << "Serial runtime: " << MPI_Wtime() - start << endl;
 
         Matrix parts[num_procs] = {};
