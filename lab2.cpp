@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
         m.fill_rand(1);
         // m.print();
         // (m * m).print();
-        serial_result = (m * m).determinant();
+        // serial_result = (m * m).determinant();
 
         Matrix parts[num_procs] = {};
         int ind = 0;
