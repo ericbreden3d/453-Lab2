@@ -177,7 +177,7 @@ Matrix Matrix::get_subm(int len, int x, int y) {
     return new_m;
 }
 
-Matrix Matrix::add_subm(Matrix& sub, int len, int x, int y) {
+void Matrix::add_subm(Matrix& sub, int len, int x, int y) {
     for (int i = 0; i < len; i++) {
         for (int j = 0; j < len; j++) {
             (*this)(i + x, j + y) = sub(i, j);
