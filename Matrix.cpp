@@ -101,8 +101,8 @@ Matrix::Matrix(const Matrix& other) {
 
 Matrix::~Matrix() {
     // cout << "Deleting matrix" << endl;
-    cout << "SIze " << size << endl;
-    print();
+    // cout << "SIze " << size << endl;
+    // print();
 
     if (size == 0) return;
     for (int i = 0; i < size; i++) {
@@ -176,7 +176,7 @@ Matrix Matrix::get_subm(int len, int x, int y) {
     for (int i = 0; i < len; i++) {
         for (int j = 0; j < len; j++) {
             new_m(i, j) = (*this)(i + x, j + y);
-            // new_m.arr[i + j * len] = (*this)(i + x, j + y);
+            new_m.arr[i + j * len] = (*this)(i + x, j + y);
         }
     }
     return new_m;
