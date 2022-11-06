@@ -18,7 +18,7 @@ Matrix Matrix::get_detrm_subm(int split) {
             new_m(x, j - 1) = (*this)(i, j);
         }
     }
-    new_m.print();
+    // new_m.print();
     return new_m;
 }
 
@@ -102,6 +102,8 @@ Matrix::Matrix(const Matrix& other) {
 Matrix::~Matrix() {
     // cout << "Deleting matrix" << endl;
     cout << "SIze " << size << endl;
+    print();
+
     for (int i = 0; i < size; i++) {
         delete[] matrix[i];
     }
