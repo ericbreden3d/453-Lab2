@@ -61,8 +61,8 @@ int main(int argc, char** argv) {
                 result = result * m;
             }
             double serial_runtime = MPI_Wtime() - start;
-            serial_result = result.determinant();
-            cout << "Serial result: " << serial_result << endl;
+            // serial_result = result.determinant();
+            // cout << "Serial result: " << serial_result << endl;
             cout << "Serial runtime: " << serial_runtime << endl;
             cout << endl;
 
@@ -195,7 +195,7 @@ int main(int argc, char** argv) {
             
             if (i == pow - 1) {
                 double parallel_runtime = MPI_Wtime() - start;
-                cout << "Parallel result: " << multA.determinant() << endl; 
+                // cout << "Parallel result: " << multA.determinant() << endl; 
                 cout << "Parallel runtime: " << parallel_runtime << endl;
                 cout << endl;
             }
