@@ -119,8 +119,10 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
 
             // cout << "rank " << this_rank << endl;
-            A.print();
-            B.print();
+            if (this_rank == 3) {
+                A.print();
+                B.print();
+            }
             return 0;
         }
 
