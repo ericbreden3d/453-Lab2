@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
         cout << "Gettings submatrices and sending from root" << endl;
         if (this_rank == 0) {
             if (i == 0) {
-                A = m;
+                A = B;
             }
 
             cout << "Disassembling A" << endl;
