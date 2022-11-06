@@ -70,8 +70,8 @@ int main(int argc, char** argv) {
     }
 
     for (int i = 0; i < pow; i++) {
-        cout << "Gettings submatrices and sending from root" << endl;
         if (this_rank == 0) {
+            cout << "Gettings submatrices and sending from root" << endl;
             if (i == 0) {
                 multA = m;
             }
@@ -92,6 +92,10 @@ int main(int argc, char** argv) {
                 for (int j = 0; j < n; j+=sub_n) {
                     partsB[ind++] = multB.get_subm(sub_n, i, j);
                 }
+            }
+
+            for (int i = 0; i < num_procs; i++) {
+                partsA[i].print();
             }
 
             cout << "Distributing submatrices" << endl;
