@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
     MPI_Comm cart_comm;
     MPI_Request req;
     MPI_Status stat;
+    Matrix m;
     Matrix A;
     Matrix B;
 
@@ -53,7 +54,7 @@ int main(int argc, char** argv) {
 
         if (num_procs == 1) {
             start = MPI_Wtime();
-            result = m;
+            int result = m;
             for (int i = 0; i < pow; i++) {
                 result = result * m;
             }
