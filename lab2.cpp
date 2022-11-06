@@ -102,8 +102,8 @@ int main(int argc, char** argv) {
                     int targ_rank;
                     int coord[2] = {i, j};
                     MPI_Cart_rank(cart_comm, coord, &targ_rank);
-                    MPI_Send(partsA[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
-                    MPI_Send(partsB[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
+                    // MPI_Send(partsA[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
+                    // MPI_Send(partsB[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
                 }
             }
             
