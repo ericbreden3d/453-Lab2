@@ -104,7 +104,7 @@ Matrix::~Matrix() {
         delete[] matrix[i];
     }
     delete[] matrix;
-    // delete[] arr;
+    delete[] arr;
 }
 
 void Matrix::fill_rand(int seed = -1) {
