@@ -94,10 +94,10 @@ int main(int argc, char** argv) {
                 }
             }
 
-            for (int i = 0; i < num_procs; i++) {
-                partsA[i].print();
-                partsB[i].print();
-            }
+            // for (int i = 0; i < num_procs; i++) {
+            //     partsA[i].print();
+            //     partsB[i].print();
+            // }
 
             cout << "Distributing submatrices" << endl;
             ind = 1;
@@ -107,8 +107,9 @@ int main(int argc, char** argv) {
                     int targ_rank;
                     int coord[2] = {i, j};
                     MPI_Cart_rank(cart_comm, coord, &targ_rank);
-                    MPI_Send(partsA[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
-                    MPI_Send(partsB[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
+                    MPI_Send(partsA[ind].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
+                    MPI_Send(partsB[ind].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
+                    ind++;
                 }
             }
             
@@ -122,13 +123,6 @@ int main(int argc, char** argv) {
             A = Matrix(buf, sub_n);
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
             B = Matrix(buf, sub_n);
-
-            // cout << "rank " << this_rank << endl;
-            if (this_rank == 1) {
-                // A.print();
-                // B.print();
-            }
-            return 0;
         }
 
         // Initial Send Alignment
