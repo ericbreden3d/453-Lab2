@@ -192,7 +192,6 @@ int main(int argc, char** argv) {
                 }
             }
 
-            cout << "hello";
             cout << "Parallel result: " << multA.determinant() << endl; 
             cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
         }
