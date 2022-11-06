@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 
         if (num_procs == 1) {
             start = MPI_Wtime();
-            int result = m;
+            Matrix result = m;
             for (int i = 0; i < pow; i++) {
                 result = result * m;
             }
