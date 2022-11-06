@@ -143,12 +143,10 @@ int main(int argc, char** argv) {
         if (this_coord[0] != 0){
             MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
-            cout << "built A" << endl;
         }
         if (this_coord[1] != 0) {
             MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
             B = Matrix(buf, sub_n);
-            cout << "built B" << endl;
         }
 
         MPI_Barrier(cart_comm);
