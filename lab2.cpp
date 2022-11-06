@@ -68,12 +68,14 @@ int main(int argc, char** argv) {
     }
 
     for (int i = 0; i < pow; i++) {
-        cout << "Gettings subatrices and sending from root" << endl;
+        cout << "Gettings submatrices and sending from root" << endl;
         if (this_rank == 0) {
             if (i == 0) {
                 A = m;
             }
             B = m;
+
+            cout << "Disassembling A" << endl;
             Matrix partsA[num_procs] = {};
             int ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
@@ -81,6 +83,7 @@ int main(int argc, char** argv) {
                     partsA[ind++] = A.get_subm(sub_n, i, j);
                 }
             }
+            cout << "Disassembling B" << endl;
             Matrix partsB[num_procs] = {};
             ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
@@ -89,6 +92,7 @@ int main(int argc, char** argv) {
                 }
             }
 
+            cout << "Distributing submatrices" << endl;
             ind = 1;
             for (int i = 0; i < dims[0]; i++) {
                 for (int j = 0; j < dims[1]; j++) {
@@ -105,6 +109,7 @@ int main(int argc, char** argv) {
             A = partsA[0];
             B = partsB[0];
         } else {
+            cout << "Other processes receiving" << endl;
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
