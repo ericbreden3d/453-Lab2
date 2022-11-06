@@ -110,8 +110,10 @@ int main(int argc, char** argv) {
             // root doesn't ned to send/recv to itself
             A = partsA[0];
             B = partsB[0];
+            return 0;
         } else {
             // cout << "Other processes receiving" << endl;
+            return 0;
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
