@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     int this_coord[2];
     int neighbors[4] = {};
     int n = stoi(argv[1]);
-    int pow = 1;
+    int pow = 2;
     int sub_n;
     int serial_result;
     double start;
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         Matrix m(n);
         m.fill_rand(1);
-        // m.print();
+        m.print();
         // (m * m).print();
 
         if (num_procs == 1) {
