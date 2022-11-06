@@ -99,12 +99,12 @@ Matrix::Matrix(const Matrix& other) {
 }
 
 Matrix::~Matrix() {
-    // cout << "Deleting matrix" << endl;
-    // for (int i = 0; i < size; i++) {
-    //     delete[] matrix[i];
-    // }
-    // delete[] matrix;
-    // delete[] arr;
+    cout << "Deleting matrix" << endl;
+    for (int i = 0; i < size; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+    delete[] arr;
 }
 
 void Matrix::fill_rand(int seed = -1) {
