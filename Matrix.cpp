@@ -43,12 +43,12 @@ int Matrix::detrm_helper(Matrix& m) {
 }
 
 Matrix::Matrix() {
-    cout << "Default Constructor Called" << endl;
+    // cout << "Default Constructor Called" << endl;
     size = 0;
 }
 
 Matrix::Matrix(int n) {
-    cout << "Creating matrix" << endl;
+    // cout << "Creating matrix" << endl;
     size = n;
     matrix = new int*[size];
     arr = new int[size * size];
@@ -62,7 +62,6 @@ Matrix::Matrix(int n) {
 }
 
 Matrix::Matrix(int* buf, int size) {
-    cout << "buffer constructor" << endl;
     this->size = size;
     int len = size * size;
     matrix = new int*[size];
@@ -86,7 +85,7 @@ Matrix::Matrix(int* buf, int size) {
 }
 
 Matrix::Matrix(const Matrix& other) {
-    cout << "Copy Constructor Called" << endl;
+    // cout << "Copy Constructor Called" << endl;
     size = other.size;
     matrix = new int*[size];
     arr = new int[size * size];
@@ -100,13 +99,11 @@ Matrix::Matrix(const Matrix& other) {
 }
 
 Matrix::~Matrix() {
-    // cout << "Deleting matrix elems" << endl;
+    // cout << "Deleting matrix" << endl;
     for (int i = 0; i < size; i++) {
         delete[] matrix[i];
     }
-    // cout << "deleting matrix\n";
     delete[] matrix;
-    // cout << "deleting arr" << endl;
     delete[] arr;
 }
 
