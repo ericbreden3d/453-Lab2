@@ -192,7 +192,7 @@ int main(int argc, char** argv) {
                 }
             }
 
-            // A = assem;
+            cout << "Parallel result: " << multA.determinant() << endl;
             cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
         }
         // assem.print();
