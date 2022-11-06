@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     int this_coord[2];
     int neighbors[4] = {};
     int n = stoi(argv[1]);
-    int pow = 2;
+    int pow = stoi(argv[2]);
     int sub_n;
     int serial_result;
     double start;
