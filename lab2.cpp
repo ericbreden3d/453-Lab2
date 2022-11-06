@@ -117,7 +117,7 @@ int main(int argc, char** argv) {
             A = Matrix(buf, sub_n);
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
             B = Matrix(buf, sub_n);
-            return;
+            return 0;
 
             cout << "rank " << this_rank << endl;
             A.print();
