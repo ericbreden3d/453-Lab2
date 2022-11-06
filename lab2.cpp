@@ -30,6 +30,8 @@ int main(int argc, char** argv) {
     MPI_Request req;
     MPI_Status stat;
     Matrix m;
+    Matrix multA;
+    Matrix multB;
     Matrix A;
     Matrix B;
 
@@ -71,16 +73,16 @@ int main(int argc, char** argv) {
         cout << "Gettings submatrices and sending from root" << endl;
         if (this_rank == 0) {
             if (i == 0) {
-                A = m;
+                multA = m;
             }
-            B = m;
+            multB = m;
 
             cout << "Disassembling A" << endl;
             Matrix partsA[num_procs] = {};
             int ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
-                    partsA[ind++] = A.get_subm(sub_n, i, j);
+                    partsA[ind++] = multA.get_subm(sub_n, i, j);
                 }
             }
             cout << "Disassembling B" << endl;
@@ -88,7 +90,7 @@ int main(int argc, char** argv) {
             ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
-                    partsB[ind++] = B.get_subm(sub_n, i, j);
+                    partsB[ind++] = multB.get_subm(sub_n, i, j);
                 }
             }
 
@@ -178,7 +180,7 @@ int main(int argc, char** argv) {
             ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
-                    A.add_subm(parts[ind++], sub_n, i, j);
+                    multA.add_subm(parts[ind++], sub_n, i, j);
                 }
             }
 
