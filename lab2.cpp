@@ -91,6 +91,9 @@ int main(int argc, char** argv) {
                     partsB[ind++] = B.get_subm(sub_n, i, j);
                 }
             }
+            for (int i = 0; i < num_procs; i++) {
+                partsA[i].print();
+            }
 
             cout << "Distributing submatrices" << endl;
             ind = 1;
@@ -105,9 +108,6 @@ int main(int argc, char** argv) {
                 }
             }
 
-            for (int i = 0; i < num_procs; i++) {
-                partsA[i].print();
-            }
             
             // root doesn't ned to send/recv to itself
             A = partsA[0];
