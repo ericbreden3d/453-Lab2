@@ -191,9 +191,12 @@ int main(int argc, char** argv) {
                     multA.add_subm(parts[ind++], sub_n, i, j);
                 }
             }
-
-            cout << "Parallel result: " << multA.determinant() << endl; 
-            cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
+            
+            if (i == pow - 1) {
+                cout << "Parallel result: " << multA.determinant() << endl; 
+                cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
+                cout << endl;
+            }
         }
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
