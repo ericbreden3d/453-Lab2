@@ -73,7 +73,6 @@ int main(int argc, char** argv) {
             if (i == 0) {
                 A = m;
             }
-            B = m;
 
             cout << "Disassembling A" << endl;
             Matrix partsA[num_procs] = {};
@@ -183,11 +182,11 @@ int main(int argc, char** argv) {
             }
 
             // A = assem;
+            cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
         }
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
         // cout << "Parallel result: " << assem.determinant() << endl;
-        cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
     }
 
     MPI_Finalize();
