@@ -53,7 +53,11 @@ int main(int argc, char** argv) {
 
         if (num_procs == 1) {
             start = MPI_Wtime();
-            serial_result = (m * m).determinant();
+            result = m;
+            for (int i = 0; i < pow; i++) {
+                result = result * m;
+            }
+            serial_result = result.determinant();
             cout << "Serial result: " << serial_result << endl;
             cout << "Serial runtime: " << MPI_Wtime() - start << endl;
             return 0;
@@ -62,7 +66,7 @@ int main(int argc, char** argv) {
         start = MPI_Wtime();
     }
 
-    for (int i = 0; i < pow; pow++) {
+    for (int i = 0; i < pow; i++) {
         if (this_rank == 0) {
             if (i == 0) {
                 A = m;
