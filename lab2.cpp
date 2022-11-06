@@ -81,6 +81,7 @@ int main(int argc, char** argv) {
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
                     cout << sub_n << " " << i << " " << j << endl;
+                    A.print();
                     partsA[ind++] = A.get_subm(sub_n, i, j);
                 }
             }
@@ -110,7 +111,7 @@ int main(int argc, char** argv) {
             A = partsA[0];
             B = partsB[0];
         } else {
-            cout << "Other processes receiving" << endl;
+            // cout << "Other processes receiving" << endl;
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
