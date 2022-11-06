@@ -152,7 +152,7 @@ int main(int argc, char** argv) {
         }
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
-        cout << "Parallel result: " << assem.determinant() << endl;
+        // cout << "Parallel result: " << assem.determinant() << endl;
         cout << "Parallel runtime: " << MPI_Wtime() - start << endl;
     }
 
