@@ -91,9 +91,6 @@ int main(int argc, char** argv) {
                     partsB[ind++] = B.get_subm(sub_n, i, j);
                 }
             }
-            for (int i = 0; i < num_procs; i++) {
-                partsA[i].print();
-            }
 
             cout << "Distributing submatrices" << endl;
             ind = 1;
@@ -107,15 +104,12 @@ int main(int argc, char** argv) {
                     MPI_Send(partsB[ind++].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
                 }
             }
-
             
             // root doesn't ned to send/recv to itself
             A = partsA[0];
             B = partsB[0];
-            return 0;
         } else {
             // cout << "Other processes receiving" << endl;
-            return 0;
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
