@@ -176,7 +176,7 @@ Matrix Matrix::get_subm(int len, int x, int y) {
     for (int i = 0; i < len; i++) {
         for (int j = 0; j < len; j++) {
             new_m(i, j) = (*this)(i + x, j + y);
-            new_m.arr[i + j * len] = (*this)(i + x, j + y);
+            // new_m.arr[i + j * len] = (*this)(i + x, j + y);
         }
     }
     return new_m;
