@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
                 }
             }
             Matrix partsB[num_procs] = {};
-            int ind = 0;
+            ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
                     partsB[ind++] = B.get_subm(sub_n, i, j);
