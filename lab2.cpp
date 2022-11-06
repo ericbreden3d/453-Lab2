@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     if (this_rank == 0) {
         m = Matrix(n);
         m.fill_rand(1);
-        m.print();
+        // m.print();
         // (m * m).print();
 
         if (num_procs == 1) {
