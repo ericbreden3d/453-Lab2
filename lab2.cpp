@@ -119,10 +119,10 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
 
             // cout << "rank " << this_rank << endl;
-            // if (this_rank == 1) {
-            //     A.print();
-            //     B.print();
-            // }
+            if (this_rank == 1) {
+                A.print();
+                B.print();
+            }
             return 0;
         }
 
