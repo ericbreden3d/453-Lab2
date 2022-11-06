@@ -101,6 +101,9 @@ Matrix::Matrix(const Matrix& other) {
 
 Matrix::~Matrix() {
     // cout << "Deleting matrix" << endl;
+    cout << "SIze " << size << endl;
+    print();
+
     if (size == 0) return;
     for (int i = 0; i < size; i++) {
         delete[] matrix[i];
