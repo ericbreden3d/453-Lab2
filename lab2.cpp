@@ -47,16 +47,16 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
-        m = Matrix(n);
-        m.fill_rand(1);
-        m.print();
+        B = Matrix(n);
+        B.fill_rand(1);
+        // B.print();
         // (m * m).print();
 
         if (num_procs == 1) {
             start = MPI_Wtime();
-            Matrix result = m;
+            Matrix result = B;
             for (int i = 0; i < pow; i++) {
-                result = result * m;
+                result = result * B;
             }
             serial_result = result.determinant();
             cout << "Serial result: " << serial_result << endl;
