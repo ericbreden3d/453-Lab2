@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
             }
 
             for (int i = 0; i < num_procs; i++) {
-                parts[i].print();
+                partsA[i].print();
             }
             
             // root doesn't ned to send/recv to itself
