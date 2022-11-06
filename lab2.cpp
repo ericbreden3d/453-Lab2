@@ -68,6 +68,7 @@ int main(int argc, char** argv) {
     }
 
     for (int i = 0; i < pow; i++) {
+        cout << "Gettings subatrices and sending from root" << endl;
         if (this_rank == 0) {
             if (i == 0) {
                 A = m;
@@ -112,6 +113,7 @@ int main(int argc, char** argv) {
         }
 
         // Initial Send Alignment
+        cout << "Initial alignment process" << endl;
         int A_src;
         int B_src;
         int A_dest;
@@ -135,8 +137,8 @@ int main(int argc, char** argv) {
         }
 
         MPI_Barrier(cart_comm);
-        // cout << "Initial alignment complete\n";
 
+        cout << "Calculate and shift iterations" << endl;
         Matrix sum(sub_n);
         sum = sum + (A * B);
         for (int i = 1; i < dims[0]; i++) {
@@ -152,6 +154,7 @@ int main(int argc, char** argv) {
         }
 
         // collect submatrices at root and assemble matrix
+        cout << "Collecting matrices at root" << endl;
         if (this_rank != 0) {
             MPI_Send(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm);
         } else {
@@ -166,6 +169,7 @@ int main(int argc, char** argv) {
                 parts[coord[1] + coord[0] * dims[0]] = Matrix(buf, sub_n);
             }
             // Matrix assem(n);
+            cout << "Assembling" << endl;
             ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
