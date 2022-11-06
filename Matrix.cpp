@@ -99,11 +99,13 @@ Matrix::Matrix(const Matrix& other) {
 }
 
 Matrix::~Matrix() {
-    // cout << "Deleting matrix" << endl;
+    cout << "Deleting matrix elems" << endl;
     for (int i = 0; i < size; i++) {
         delete[] matrix[i];
     }
+    cout << "deleting matrix\n";
     delete[] matrix;
+    cout << "deleting arr" << endl;
     delete[] arr;
 }
 
