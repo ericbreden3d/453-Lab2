@@ -128,6 +128,7 @@ int main(int argc, char** argv) {
         int buf[sub_n * sub_n];
         MPI_Cart_shift(cart_comm, 1, -this_coord[0], &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, -this_coord[1], &B_src, &B_dest);
+        cout << "herererer\n";
         if (this_coord[0] != 0) {
             MPI_Send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
         }
