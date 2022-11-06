@@ -71,13 +71,13 @@ int main(int argc, char** argv) {
 
     for (int i = 0; i < pow; i++) {
         if (this_rank == 0) {
-            cout << "Gettings submatrices and sending from root" << endl;
+            // cout << "Gettings submatrices and sending from root" << endl;
             if (i == 0) {
                 multA = m;
             }
             multB = m;
 
-            cout << "Disassembling A" << endl;
+            // cout << "Disassembling A" << endl;
             Matrix partsA[num_procs] = {};
             int ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
                     partsA[ind++] = multA.get_subm(sub_n, i, j);
                 }
             }
-            cout << "Disassembling B" << endl;
+            // cout << "Disassembling B" << endl;
             Matrix partsB[num_procs] = {};
             ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
             //     partsB[i].print();
             // }
 
-            cout << "Distributing submatrices" << endl;
+            // cout << "Distributing submatrices" << endl;
             ind = 1;
             for (int i = 0; i < dims[0]; i++) {
                 for (int j = 0; j < dims[1]; j++) {
@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
         }
 
         // Initial Send Alignment
-        cout << "Initial alignment process" << endl;
+        // cout << "Initial alignment process" << endl;
         int A_src;
         int B_src;
         int A_dest;
@@ -153,7 +153,7 @@ int main(int argc, char** argv) {
 
         MPI_Barrier(cart_comm);
 
-        cout << "Calculate and shift iterations" << endl;
+        // cout << "Calculate and shift iterations" << endl;
         Matrix sum(sub_n);
         sum = sum + (A * B);
         for (int i = 1; i < dims[0]; i++) {
@@ -169,7 +169,7 @@ int main(int argc, char** argv) {
         }
 
         // collect submatrices at root and assemble matrix
-        cout << "Collecting matrices at root" << endl;
+        // cout << "Collecting matrices at root" << endl;
         if (this_rank != 0) {
             MPI_Send(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm);
         } else {
@@ -184,7 +184,7 @@ int main(int argc, char** argv) {
                 parts[coord[1] + coord[0] * dims[0]] = Matrix(buf, sub_n);
             }
             // Matrix assem(n);
-            cout << "Assembling" << endl;
+            // cout << "Assembling" << endl;
             ind = 0;
             for (int i = 0; i < n; i+=sub_n) {
                 for (int j = 0; j < n; j+=sub_n) {
