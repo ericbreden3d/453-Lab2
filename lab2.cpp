@@ -47,16 +47,16 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
-        B = Matrix(n);
-        B.fill_rand(1);
-        // B.print();
+        m = Matrix(n);
+        m.fill_rand(1);
+        m.print();
         // (m * m).print();
 
         if (num_procs == 1) {
             start = MPI_Wtime();
-            Matrix result = B;
+            Matrix result = m;
             for (int i = 0; i < pow; i++) {
-                result = result * B;
+                result = result * m;
             }
             serial_result = result.determinant();
             cout << "Serial result: " << serial_result << endl;
@@ -71,8 +71,9 @@ int main(int argc, char** argv) {
         cout << "Gettings submatrices and sending from root" << endl;
         if (this_rank == 0) {
             if (i == 0) {
-                A = B;
+                A = m;
             }
+            B = m;
 
             cout << "Disassembling A" << endl;
             Matrix partsA[num_procs] = {};
