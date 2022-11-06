@@ -94,6 +94,11 @@ int main(int argc, char** argv) {
                 }
             }
 
+            for (int i = 0; i < num_procs; i++) {
+                partsA[i].print();
+                partsB[i].print();
+            }
+
             cout << "Distributing submatrices" << endl;
             ind = 1;
             for (int i = 0; i < dims[0]; i++) {
@@ -120,8 +125,8 @@ int main(int argc, char** argv) {
 
             // cout << "rank " << this_rank << endl;
             if (this_rank == 1) {
-                A.print();
-                B.print();
+                // A.print();
+                // B.print();
             }
             return 0;
         }
