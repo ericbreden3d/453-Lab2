@@ -54,6 +54,9 @@ int main(int argc, char** argv) {
         // m.print();
         // (m * m).print();
 
+        cout << "n = " << n << endl;
+        cout << "k = " << k << endl;
+
         if (num_procs == 1) {
             start = MPI_Wtime();
             Matrix result = m;
