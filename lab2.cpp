@@ -144,23 +144,45 @@ int main(int argc, char** argv) {
         MPI_Cart_shift(cart_comm, 1, -this_coord[0], &A_src, &A_dest);
         MPI_Cart_shift(cart_comm, 0, -this_coord[1], &B_src, &B_dest);
         if (this_coord[0] != 0) {
-            MPI_send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
-            cout << this_rank << " sent A to " << A_dest << endl;
-        }
-        if (this_coord[0] != 0){
-            MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
-            cout << this_rank << " received A from " << A_src << endl;
+            MPI_Sendrecv(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, buf, sub_n * sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
         }
         if (this_coord[1] != 0) {
-            MPI_send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
-            cout << this_rank << " sent B to " << B_dest << endl;
-        }
-        if (this_coord[1] != 0) {
-            MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-            cout << this_rank << " received B from " << B_src << endl;
+            MPI_Sendrecv(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, buf, sub_n * sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
             B = Matrix(buf, sub_n);
         }
+
+        // int MPI_Sendrecv(const void* buffer_send,
+        //          int count_send,
+        //          MPI_Datatype datatype_send,
+        //          int recipient,
+        //          int tag_send,
+        //          void* buffer_recv,
+        //          int count_recv,
+        //          MPI_Datatype datatype_recv,
+        //          int sender,
+        //          int tag_recv,
+        //          MPI_Comm communicator,
+        //          MPI_Status* status);
+
+        // if (this_coord[0] != 0) {
+        //     MPI_send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
+        //     cout << this_rank << " sent A to " << A_dest << endl;
+        // }
+        // if (this_coord[0] != 0){
+        //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+        //     cout << this_rank << " received A from " << A_src << endl;
+        //     A = Matrix(buf, sub_n);
+        // }
+        // if (this_coord[1] != 0) {
+        //     MPI_send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
+        //     cout << this_rank << " sent B to " << B_dest << endl;
+        // }
+        // if (this_coord[1] != 0) {
+        //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+        //     cout << this_rank << " received B from " << B_src << endl;
+        //     B = Matrix(buf, sub_n);
+        // }
 
         cout << this_rank << " at barrier 1" << endl;
         MPI_Barrier(cart_comm);
