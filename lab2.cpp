@@ -64,8 +64,8 @@ int main(int argc, char** argv) {
                 result = result * m;
             }
             double serial_runtime = MPI_Wtime() - start;
-            // serial_result = result.determinant();
-            // cout << "Serial result: " << serial_result << endl;
+            serial_result = result.determinant();
+            cout << "Serial result: " << serial_result << endl;
             cout << "Serial runtime: " << serial_runtime << endl;
             cout << endl;
 
