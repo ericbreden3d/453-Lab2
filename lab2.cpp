@@ -131,6 +131,9 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
         }
 
+        cout << this_rank << " at barrier 0" << endl;
+        MPI_Barrier(cart_comm);
+
         // Initial Send Alignment
         // cout << "Initial alignment process" << endl;
         int A_src;
