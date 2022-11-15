@@ -131,8 +131,8 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
         }
 
-        // cout << this_rank << " at barrier 0" << endl;
         // MPI_Barrier(cart_comm);
+        // cout << "past barrier 0" << endl;
 
         // Initial Send Alignment
         // cout << "Initial alignment process" << endl;
@@ -184,8 +184,8 @@ int main(int argc, char** argv) {
         //     B = Matrix(buf, sub_n);
         // }
 
-        cout << this_rank << " at barrier 1" << endl;
         MPI_Barrier(cart_comm);
+        cout << "past barrier 1" << endl;
 
         // cout << "Calculate and shift iterations" << endl;
         Matrix sum(sub_n);
@@ -200,8 +200,8 @@ int main(int argc, char** argv) {
             sum = sum + (A * B);
         }
 
-        cout << this_rank << " at barrier 2" << endl;
         MPI_Barrier(cart_comm);
+        cout << " past barrier 2" << endl;
 
         // collect submatrices at root and assemble matrix
         // cout << "Collecting matrices at root" << endl;
@@ -235,7 +235,7 @@ int main(int argc, char** argv) {
             }
         }
 
-        cout << this_rank << " at barrier 3" << endl;
+        cout << " past barrier 3" << endl;
         MPI_Barrier(cart_comm);
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
