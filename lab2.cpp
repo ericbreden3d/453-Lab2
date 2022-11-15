@@ -193,11 +193,9 @@ int main(int argc, char** argv) {
         for (int i = 1; i < dims[0]; i++) {
             MPI_Cart_shift(cart_comm, 1, -1, &A_src, &A_dest);
             MPI_Cart_shift(cart_comm, 0, -1, &B_src, &B_dest);
-            MPI_Send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
-            MPI_Send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
-            MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
+            MPI_Sendrecv(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, buf, sub_n * sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
             A = Matrix(buf, sub_n);
-            MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
+            MPI_Sendrecv(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, buf, sub_n * sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
             B = Matrix(buf, sub_n);
             sum = sum + (A * B);
         }
