@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
         // (m * m).print();
 
         cout << "n = " << n << endl;
-        cout << "k = " << k << endl;
+        cout << "k = " << pow << endl;
 
         if (num_procs == 1) {
             start = MPI_Wtime();
