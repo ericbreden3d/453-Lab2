@@ -128,10 +128,10 @@ int main(int argc, char** argv) {
             // cout << "Other processes receiving" << endl;
             int buf[sub_n * sub_n];
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
-            cout << targ_rank << " received A" << endl;
+            cout << this_rank << " received A" << endl;
             A = Matrix(buf, sub_n);
             MPI_Recv(buf, sub_n * sub_n, MPI_INT, 0, 0, cart_comm, &stat);
-            cout << targ_rank << " received B" << endl;
+            cout << this_rank << " received B" << endl;
             B = Matrix(buf, sub_n);
         }
 
