@@ -113,7 +113,9 @@ int main(int argc, char** argv) {
                     int targ_rank;
                     int coord[2] = {i, j};
                     MPI_Cart_rank(cart_comm, coord, &targ_rank);
+                    cout << "sending A to " << targ_rank << endl;
                     MPI_Send(partsA[ind].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
+                    cout << "sending B to " << targ_rank << endl;
                     MPI_Send(partsB[ind].get_1d(), sub_n*sub_n, MPI_INT, targ_rank, 0, cart_comm);
                     ind++;
                 }
