@@ -155,6 +155,7 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
         }
 
+        cout << this_rank << " at barrier 1" << endl;
         MPI_Barrier(cart_comm);
 
         // cout << "Calculate and shift iterations" << endl;
@@ -171,6 +172,9 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
             sum = sum + (A * B);
         }
+
+        cout << this_rank << " at barrier 2" << endl;
+        MPI_Barrier(cart_comm);
 
         // collect submatrices at root and assemble matrix
         // cout << "Collecting matrices at root" << endl;
@@ -203,6 +207,9 @@ int main(int argc, char** argv) {
                 cout << endl;
             }
         }
+
+        cout << this_rank << " at barrier 3" << endl;
+        MPI_Barrier();
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
         // cout << "Parallel result: " << assem.determinant() << endl;
