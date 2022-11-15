@@ -209,7 +209,7 @@ int main(int argc, char** argv) {
         }
 
         cout << this_rank << " at barrier 3" << endl;
-        MPI_Barrier();
+        MPI_Barrier(cart_comm);
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
         // cout << "Parallel result: " << assem.determinant() << endl;
