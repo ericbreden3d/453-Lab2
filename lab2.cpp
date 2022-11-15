@@ -146,7 +146,7 @@ int main(int argc, char** argv) {
         }
         if (this_coord[1] != 0) {
             MPI_Send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
-            cout << this_rank << "  sent B to " << B_dest << endl;
+            cout << this_rank << " sent B to " << B_dest << endl;
         }
         if (this_coord[0] != 0){
             MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
@@ -155,7 +155,7 @@ int main(int argc, char** argv) {
         }
         if (this_coord[1] != 0) {
             MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-            cout << this_rank << " received B from " << A_src << endl;
+            cout << this_rank << " received B from " << B_src << endl;
             B = Matrix(buf, sub_n);
         }
 
