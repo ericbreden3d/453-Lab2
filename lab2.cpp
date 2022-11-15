@@ -185,7 +185,7 @@ int main(int argc, char** argv) {
         // }
 
         MPI_Barrier(cart_comm);
-        cout << "past barrier 1" << endl;
+        // cout << "past barrier 1" << endl;
 
         // cout << "Calculate and shift iterations" << endl;
         Matrix sum(sub_n);
@@ -201,7 +201,7 @@ int main(int argc, char** argv) {
         }
 
         MPI_Barrier(cart_comm);
-        cout << " past barrier 2" << endl;
+        // cout << " past barrier 2" << endl;
 
         // collect submatrices at root and assemble matrix
         // cout << "Collecting matrices at root" << endl;
@@ -235,7 +235,7 @@ int main(int argc, char** argv) {
             }
         }
 
-        cout << " past barrier 3" << endl;
+        // cout << " past barrier 3" << endl;
         MPI_Barrier(cart_comm);
         // assem.print();
         // cout << "Serial result: " << serial_result << endl;
