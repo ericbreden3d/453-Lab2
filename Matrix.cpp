@@ -29,6 +29,7 @@ int Matrix::detrm_helper(Matrix& m) {
     int op = 1;
     int detrm = 0;
     for (int i = 0; i < m.size; i++) {
+        // get sub-matrix without column i
         Matrix sub = m.get_detrm_subm(i);
         int rec = detrm_helper(sub);
         int result = m(i, 0) * rec;

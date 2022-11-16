@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     MPI_Comm cart_comm;
     MPI_Request req;
     MPI_Status stat;
-    Matrix m;
+    Matrix X;
     Matrix multA;
     Matrix multB;
     Matrix A;
@@ -49,8 +49,8 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
-        m = Matrix(n);
-        m.fill_rand(1);
+        X = Matrix(n);
+        X.fill_rand(1);
         // m.print();
         // (m * m).print();
 
@@ -59,9 +59,9 @@ int main(int argc, char** argv) {
 
         if (num_procs == 1) {
             start = MPI_Wtime();
-            Matrix result = m;
+            Matrix result = X;
             for (int i = 0; i < pow; i++) {
-                result = result * m;
+                result = result * X;
             }
             double serial_runtime = MPI_Wtime() - start;
             // serial_result = result.determinant();
@@ -78,10 +78,12 @@ int main(int argc, char** argv) {
     for (int i = 0; i < pow; i++) {
         if (this_rank == 0) {
             // cout << "Gettings submatrices and sending from root" << endl;
+            // If first iteration then current matrix is initial matrix.
+            // Otherwise use last iteration result currently stored in multA.
             if (i == 0) {
-                multA = m;
+                multA = X;
             }
-            multB = m;
+            multB = X;
 
             // cout << "Disassembling A" << endl;
             Matrix partsA[num_procs] = {};
@@ -99,11 +101,6 @@ int main(int argc, char** argv) {
                     partsB[ind++] = multB.get_subm(sub_n, i, j);
                 }
             }
-
-            // for (int i = 0; i < num_procs; i++) {
-            //     partsA[i].print();
-            //     partsB[i].print();
-            // }
 
             // cout << "Distributing submatrices" << endl;
             ind = 1;
@@ -134,8 +131,7 @@ int main(int argc, char** argv) {
         // MPI_Barrier(cart_comm);
         // cout << "past barrier 0" << endl;
 
-        // Initial Send Alignment
-        // cout << "Initial alignment process" << endl;
+        // Initial Alignment
         int A_src;
         int B_src;
         int A_dest;
@@ -152,42 +148,9 @@ int main(int argc, char** argv) {
             B = Matrix(buf, sub_n);
         }
 
-        // int MPI_Sendrecv(const void* buffer_send,
-        //          int count_send,
-        //          MPI_Datatype datatype_send,
-        //          int recipient,
-        //          int tag_send,
-        //          void* buffer_recv,
-        //          int count_recv,
-        //          MPI_Datatype datatype_recv,
-        //          int sender,
-        //          int tag_recv,
-        //          MPI_Comm communicator,
-        //          MPI_Status* status);
-
-        // if (this_coord[0] != 0) {
-        //     MPI_send(A.get_1d(), sub_n * sub_n, MPI_INT, A_dest, 0, cart_comm);
-        //     cout << this_rank << " sent A to " << A_dest << endl;
-        // }
-        // if (this_coord[0] != 0){
-        //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, A_src, 0, cart_comm, &stat);
-        //     cout << this_rank << " received A from " << A_src << endl;
-        //     A = Matrix(buf, sub_n);
-        // }
-        // if (this_coord[1] != 0) {
-        //     MPI_send(B.get_1d(), sub_n * sub_n, MPI_INT, B_dest, 0, cart_comm);
-        //     cout << this_rank << " sent B to " << B_dest << endl;
-        // }
-        // if (this_coord[1] != 0) {
-        //     MPI_Recv(buf, sub_n*sub_n, MPI_INT, B_src, 0, cart_comm, &stat);
-        //     cout << this_rank << " received B from " << B_src << endl;
-        //     B = Matrix(buf, sub_n);
-        // }
-
         MPI_Barrier(cart_comm);
-        // cout << "past barrier 1" << endl;
 
-        // cout << "Calculate and shift iterations" << endl;
+        // Calculate and Shift loop
         Matrix sum(sub_n);
         sum = sum + (A * B);
         for (int i = 1; i < dims[0]; i++) {
@@ -201,10 +164,8 @@ int main(int argc, char** argv) {
         }
 
         MPI_Barrier(cart_comm);
-        // cout << " past barrier 2" << endl;
 
         // collect submatrices at root and assemble matrix
-        // cout << "Collecting matrices at root" << endl;
         if (this_rank != 0) {
             MPI_Send(sum.get_1d(), sub_n * sub_n, MPI_INT, 0, 0, cart_comm);
         } else {
