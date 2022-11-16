@@ -31,8 +31,11 @@ int Matrix::detrm_helper(Matrix& m) {
     for (int i = 0; i < m.size; i++) {
         // get sub-matrix without column i
         Matrix sub = m.get_detrm_subm(i);
+        // recursively find determinant of sub-matrix
         int rec = detrm_helper(sub);
+        // get product
         int result = m(i, 0) * rec;
+        // add to or subtract from current total
         if (op) {
             detrm += result;
             op--;

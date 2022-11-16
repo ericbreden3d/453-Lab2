@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     int this_coord[2];
     int neighbors[4] = {};
     int n = stoi(argv[1]);
-    int pow = stoi(argv[2]);
+    int k = stoi(argv[2]);
     int sub_n;
     int serial_result;
     double start;
@@ -49,18 +49,17 @@ int main(int argc, char** argv) {
     get_dim_counts(2, cart_comm, dim_counts);
 
     if (this_rank == 0) {
+        // create initial randomized matrix of size n
         X = Matrix(n);
         X.fill_rand(1);
-        // m.print();
-        // (m * m).print();
 
         cout << "n = " << n << endl;
-        cout << "k = " << pow << endl;
+        cout << "k = " << k << endl;
 
         if (num_procs == 1) {
             start = MPI_Wtime();
             Matrix result = X;
-            for (int i = 0; i < pow; i++) {
+            for (int i = 0; i < k; i++) {
                 result = result * X;
             }
             double serial_runtime = MPI_Wtime() - start;
@@ -75,7 +74,7 @@ int main(int argc, char** argv) {
         start = MPI_Wtime();
     }
 
-    for (int i = 0; i < pow; i++) {
+    for (int i = 0; i < k; i++) {
         if (this_rank == 0) {
             // cout << "Gettings submatrices and sending from root" << endl;
             // If first iteration then current matrix is initial matrix.
@@ -188,7 +187,7 @@ int main(int argc, char** argv) {
                 }
             }
             
-            if (i == pow - 1) {
+            if (i == k - 1) {
                 double parallel_runtime = MPI_Wtime() - start;
                 // cout << "Parallel result: " << multA.determinant() << endl; 
                 cout << "Parallel runtime: " << parallel_runtime << endl;
@@ -196,11 +195,7 @@ int main(int argc, char** argv) {
             }
         }
 
-        // cout << " past barrier 3" << endl;
         MPI_Barrier(cart_comm);
-        // assem.print();
-        // cout << "Serial result: " << serial_result << endl;
-        // cout << "Parallel result: " << assem.determinant() << endl;
     }
 
     MPI_Finalize();
